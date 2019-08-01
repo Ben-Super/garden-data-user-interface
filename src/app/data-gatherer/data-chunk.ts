@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+/*
+ * Helper class to make data retrieved from ThingSpeak easier to work with
+ */
+@Injectable({
+  providedIn: 'root'
+})
 export class DataChunk {
   date: Date;
   temperature: number;
@@ -18,9 +23,22 @@ export class DataChunk {
     this.soil_moisture = parseFloat(sm);
     this.sunlight = parseFloat(sn);
   }
+
+  toString() {
+    return "Date: " + this.date.toDateString() + "\n" +
+    "Time: " + this.date.toTimeString() + "\n" +
+    "Temperature: " + this.temperature + "\n" +
+    "Soil Moisture: " + this.soil_moisture + "\n" +
+    "Sunlight: " + this.sunlight;
+  }
 }
 
-@Injectable()
+/*
+ * Helper class to make data from an entire day easier to work with
+ */
+@Injectable({
+  providedIn: 'root'
+})
 export class DayDataChunk {
   date: Date;
   temperature: number;
