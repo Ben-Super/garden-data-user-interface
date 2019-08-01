@@ -2,30 +2,65 @@ import { Component, OnInit } from '@angular/core';
 import { RestService } from '../rest/rest.service';
 import { interval } from 'rxjs';
 
+import { DataChunk, DayDataChunk } from './data-chunk';
+
 @Component({
   selector: 'app-data-gatherer',
   templateUrl: './data-gatherer.component.html',
   styleUrls: ['./data-gatherer.component.css']
 })
 export class DataGathererComponent implements OnInit {
-  data: any = [];
-  lastOut: any = this.retrieveData();
+
+  currentData: DataChunk[];
+  pastData: DayDataChunk[];
+  temperatureTotal: number = 0;
+  soilMoistureTotal: number = 0;
+  sunlightData: number[] = [];
 
   constructor(public rest: RestService) {}
 
   ngOnInit() {
     interval(5000).subscribe(x => {
-      this.lastOut = this.retrieveData();
-      console.log(this.lastOut.feeds[0]);
+      this.update();
     });
   }
 
-  retrieveData() {
+  update() {
     this.rest.updateData();
-    if (this.data.length >= 50) {
-      this.data.shift();
+    let data = new DataChunk(this.rest.response);
+    if (this.isNewDay(data)) {
+      this.storeOldData();
+      this.currentData = [];
+      this.sunlightData = [];
     }
-    this.data.push(this.rest.response);
-    return this.rest.response;
+    if (this.isNewData(data)) {
+      this.temperatureTotal += data.temperature;
+      this.soilMoistureTotal += data.soil_moisture;
+      this.sunlightData.push(data.sunlight);
+      this.currentData.push(data);
+    }
+  }
+
+  isNewDay(data: any) {
+    let temp1 = new Date(data.date.toDateString());
+    let temp2 = new Date(this.currentData[this.currentData.length - 1].date.toDateString());
+    return temp1 === temp2;
+  }
+
+  isNewData(data: any) {
+    return data.date == this.currentData[this.currentData.length - 1].date;
+  }
+
+  storeOldData() {
+    if (this.pastData.length >= 100) {
+      this.pastData.shift();
+    }
+    let div = this.currentData.length;
+    this.pastData.push(new DayDataChunk(
+      new Date(this.currentData[this.currentData.length - 1].date.toDateString()),
+      this.temperatureTotal / div,
+      this.soilMoistureTotal / div,
+      this.sunlightData)
+    );
   }
 }
