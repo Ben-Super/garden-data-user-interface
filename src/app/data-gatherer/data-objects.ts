@@ -53,6 +53,9 @@ export class DayDataChunk {
   }
 }
 
+/*
+ * Helper class to store the data in a way that the chart library can read
+ */
 @Injectable({
   providedIn: 'root'
 })
@@ -64,7 +67,8 @@ export class ChartData {
   public constructor() {
     this.resetData();
   }
-
+  
+  // Clears all the data
   public resetData() {
     this.size = 0;
     this.lastEntry = undefined;
@@ -93,6 +97,7 @@ export class ChartData {
     }
   }
 
+  // Adds new data to the chart data
   public pushData(newData: DataChunk) {
     let changedData = {
       labels: this.data.labels,
@@ -123,23 +128,28 @@ export class ChartData {
     changedData.datasets[1].data.push(newData.soil_moisture);
     changedData.datasets[2].data.push(newData.sunlight);
     this.size += 1;
+    this.lastEntry = newData;
     this.data = changedData;
   }
 
+  // Formats time into HH:MM
   private formatTime(date: Date) {
     return date.getHours() + ':' + date.getMinutes()
   }
 
+  // Returns the date from the last entry
   public getLastDate() {
     if (this.lastEntry != undefined) return this.lastEntry.date;
     else return undefined;
   }
 
+  // Returns the entire last entry as a DataChunk
   public getLastEntry() {
     if (this.lastEntry != undefined) return this.lastEntry;
     else return undefined;
   }
 
+  // Returns the size of the data (number of recordings)
   public getSize() {
     return this.size;
   }
