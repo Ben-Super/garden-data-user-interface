@@ -8,11 +8,10 @@ import {ChartModule} from 'primeng/chart';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataGathererComponent } from './data-gatherer/data-gatherer.component';
 import { DataChartComponent } from './data-chart/data-chart.component';
 
 @NgModule({
-  declarations: [AppComponent, DataGathererComponent, DataChartComponent],
+  declarations: [AppComponent, DataChartComponent],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule, ChartModule],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
