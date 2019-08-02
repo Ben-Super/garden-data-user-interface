@@ -1,11 +1,17 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { RestService } from '../rest/rest.service';
 import { DataChunk, DayDataChunk, ChartData } from './data-objects';
 
+/*
+ * ~ Data Gatherer ~
+ * 
+ * Retrieves the data from the rest service and puts it into easy to track arrays
+ * 
+ */
 @Injectable({
   providedIn: 'root'
 })
-export class DataGathererComponent {
+export class DataGathererComponent implements OnInit {
 
   public currentData: ChartData; // data from the current day
   public pastData: DayDataChunk[] = []; // stored data summary from past days
@@ -17,6 +23,10 @@ export class DataGathererComponent {
     this.currentData = new ChartData();
   }
 
+  ngOnInit() {
+    
+  }
+
   /*
    * Adds a data chunk to the current day if there is a new one from the rest service
    * Stores the data from this day and resets the current data to empty if a new day has been reached
@@ -25,15 +35,14 @@ export class DataGathererComponent {
     this.rest.updateData();
     if (this.rest.response != undefined) {
       let data = new DataChunk(this.rest.response);
-      console.log(data.toString());
-      if (this.isNewDay(data)) {
+      if (false && this.isNewDay(data)) { // disabled temporarily
         this.storeOldData();
         this.currentData.resetData();
         this.sunlightData = [];
         this.soilMoistureTotal = 0;
         this.temperatureTotal = 0;
       }
-      if (this.isNewData(data)) {
+      if (true || this.isNewData(data)) { // temporarily always true
         this.temperatureTotal += data.temperature;
         this.soilMoistureTotal += data.soil_moisture;
         this.sunlightData.push(data.sunlight);
@@ -49,7 +58,7 @@ export class DataGathererComponent {
     if (this.currentData.getSize() == 0) return false;
     let temp1 = new Date(data.date.toDateString());
     let temp2 = new Date(this.currentData.getLastDate().toDateString());
-    return temp1 === temp2;
+    return temp1 != temp2;
   }
 
   /*

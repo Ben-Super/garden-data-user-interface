@@ -1,4 +1,9 @@
 <div>
-  <p-toast [ngstyle]="{marginTop: '80px'}"></p-toast>
-  <p-chart type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+  <p-toast [ngstyle]="{marginTop: '80px', marginBottom: '80px'}"></p-toast>
+  <p-chart label="current-data" type="line" [data]="data" (onDataSelect)="selectData($event)"></p-chart>
+</div>
+<div>
+  <p-button label="Temperature" (onClick)="refresh($event)"></p-button>
+  <p-button label="Soil Moisture" (onClick)="refresh($event)"></p-button>
+  <p-button label="Humidity" (onClick)="refresh($event)"></p-button>
 </div>

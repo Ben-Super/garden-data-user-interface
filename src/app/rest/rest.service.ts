@@ -1,10 +1,8 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpClient,
-  HttpErrorResponse
-} from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import {Injectable} from "@angular/core";
+import {Http, Response} from "@angular/http";
+import { Observable } from "rxjs/Observable";
+ import "rxjs/Rx";
+import { ThingSpeakData } from './response-interface';
 
 const endpoint = 'https://api.thingspeak.com/channels/500326/';
 
@@ -16,18 +14,19 @@ export class RestService {
 
   constructor(private http: HttpClient) {}
 
-  updateData() {
+  get(): Observable<T> {
     this.http
       .get(endpoint + 'feeds.json?results=1')
       .subscribe(result => (this.response = result));
+      return this.http
+             .get(endpoint + 'feeds.json?results=1')
+             .map((response: Response) => {
+                 return response.json();
+             })
+             .catch(this.handleError);
   }
 
-  // TODO implement this
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(error); // log to console instead
-      console.log(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
+  private handleError(error: Response) {
+    return Observable.throw(error.statusText);
   }
 }

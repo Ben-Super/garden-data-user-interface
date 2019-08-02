@@ -76,22 +76,13 @@ export class ChartData {
       labels: [],
       datasets: [
         {
-          label: 'Temperature',
           data: [],
-          fill: false,
-          borderColor: '#4bc0c0'
         },
         {
-          label: 'Sunlight',
           data: [],
-          fill: false,
-          borderColor: '#a8324e'
         },
         {
-          label: 'Soil Moisture',
           data: [],
-          fill: false,
-          borderColor: '#32a861'
         }
       ]
     }
@@ -99,37 +90,13 @@ export class ChartData {
 
   // Adds new data to the chart data
   public pushData(newData: DataChunk) {
-    let changedData = {
-      labels: this.data.labels,
-      datasets: [
-        {
-          label: 'Temperature',
-          data: this.data.datasets[0].data,
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'Sunlight',
-          data: this.data.datasets[1].data,
-          fill: false,
-          borderColor: '#a8324e'
-        },
-        {
-          label: 'Soil Moisture',
-          data: this.data.datasets[2].data,
-          fill: false,
-          borderColor: '#32a861'
-        }
-      ]
-    }
-    changedData.labels.push()
-    changedData.labels.push(this.formatTime(newData.date));
-    changedData.datasets[0].data.push(newData.temperature);
-    changedData.datasets[1].data.push(newData.soil_moisture);
-    changedData.datasets[2].data.push(newData.sunlight);
+    this.data.labels.push()
+    this.data.labels.push(this.formatTime(newData.date));
+    this.data.datasets[0].data.push(newData.temperature);
+    this.data.datasets[1].data.push(newData.soil_moisture);
+    this.data.datasets[2].data.push(newData.sunlight);
     this.size += 1;
     this.lastEntry = newData;
-    this.data = changedData;
   }
 
   // Formats time into HH:MM
