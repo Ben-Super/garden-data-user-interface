@@ -1,9 +1,8 @@
 
 import {Component, OnInit} from '@angular/core';
-import {MessageService} from 'primeng/api';
 import { interval } from 'rxjs';
 
-import { DataGathererComponent } from '../data-gatherer/data-gatherer.service';
+import { DataGathererService } from '../data-gatherer/data-gatherer.service';
 
 const UPDATE_INTERVAL = 1000;
 
@@ -16,58 +15,29 @@ const UPDATE_INTERVAL = 1000;
 @Component({
   selector: 'app-data-chart',
   templateUrl: './data-chart.component.html',
-  providers: [MessageService]
 })
-export class DataChartComponent implements OnInit{
+export class DataChartComponent implements OnInit {
   
-  data: any; // The data for the chart
-  responsive: boolean = true; // Dynamic resizing enabled
+  chartOptions = {
+    responsive: true
+  };
 
-  // Refreshes the data every second
+  temperatureData = [{ data: [], label: 'Temperature' }];
+  soilMoistureData = [{ data: [], label: 'Soil Moisture' }];
+  sunlightData = [{ data: [], label: 'Sunlight' }];
+
+  chartLabels = [];
+
   ngOnInit() {
-    this.refresh();
+    this.update();
   }
 
-  // Makes the data into an empty frame
-  constructor(private messageService: MessageService, private gatherer: DataGathererComponent) {
-    this.data = {
-      labels: [],
-      datasets: [
-        {
-          label: 'Temperature',
-          data: [],
-          fill: false,
-          borderColor: '#4bc0c0'
-        },
-        {
-          label: 'Sunlight',
-          data: [],
-          fill: false,
-          borderColor: '#a8324e'
-        },
-        {
-          label: 'Soil Moisture',
-          data: [],
-          fill: false,
-          borderColor: '#32a861'
-        }
-      ]
-    }
+  update() {
+    this.temperatureData[0].data = this.gatherer.temperatureData;
+    this.soilMoistureData[0].data = this.gatherer.soilMoistureData;
+    this.sunlightData[0].data = this.gatherer.sunlightData;
   }
 
-  // Grabs the data from the ChartData object and assigns it to this chart
-  refresh(event) {
-    this.gatherer.update();
-    let newData = this.gatherer.currentData.data;
-    this.data.labels = newData.labels;
-    this.data.datasets[0].data = newData.datasets[0].data;
-    this.data.datasets[1].data = newData.datasets[1].data;
-    this.data.datasets[2].data = newData.datasets[2].data;
-  }
+  constructor(private gatherer: DataGathererService) {}
 
-  // Lets you hide certain fields on click
-  selectData(event) {
-    this.messageService.add({severity: 'info', summary: 'Data Selected', 'detail': 
-    this.data.datasets[event.element._datasetIndex].data[event.element._index]});
-  }
 }

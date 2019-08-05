@@ -12,16 +12,13 @@ const endpoint = 'https://api.thingspeak.com/channels/500326/';
 export class RestService {
   response: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: Http) {}
 
-  get(): Observable<T> {
-    this.http
-      .get(endpoint + 'feeds.json?results=1')
-      .subscribe(result => (this.response = result));
+  get(): Observable<ThingSpeakData[]> {
       return this.http
              .get(endpoint + 'feeds.json?results=1')
              .map((response: Response) => {
-                 return response.json();
+                 return <ThingSpeakData[]>response.json();
              })
              .catch(this.handleError);
   }
