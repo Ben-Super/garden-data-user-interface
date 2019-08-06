@@ -1,5 +1,5 @@
 
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 
 import { DataGathererService } from '../data-gatherer/data-gatherer.service';
 import { RestService } from '../rest/rest.service';
@@ -20,6 +20,11 @@ export class DataChartComponent implements OnInit {
     responsive: true
   };
 
+  @Input() field: string;
+  @Input() type: string;
+
+  data = [{ data: [], label: 'No Data Provided' }];
+  chartType = 'line'
   temperatureData = [{ data: [], label: 'Temperature' }];
   soilMoistureData = [{ data: [], label: 'Soil Moisture' }];
   sunlightData = [{ data: [], label: 'Sunlight' }];
@@ -27,6 +32,25 @@ export class DataChartComponent implements OnInit {
   timestamps = [];
 
   ngOnInit() {
+    switch(this.field) {
+      case '1':
+        this.data = this.temperatureData;
+        break;
+      case '2': 
+        this.data = this.soilMoistureData;
+        break;
+      case '3': 
+        this.data = this.sunlightData;
+        break;
+      default:
+        throw 'No field selector provided!';
+        break;
+    }
+    if (this.type == 'line' || this.type == 'pie') {
+      this.chartType = this.type;
+    } else {
+      throw 'Invalid or unprovided chart type!';
+    }
     this.getData();
   }
 
@@ -34,7 +58,6 @@ export class DataChartComponent implements OnInit {
     this.rest.get()
       .subscribe(
         result => {
-          console.log(result);
           this.timestamps.push(this.format(new Date(result.feeds[0].created_at)));
           this.temperatureData[0].data.push(parseFloat(result.feeds[0].field1));
           this.soilMoistureData[0].data.push(parseFloat(result.feeds[0].field3));
