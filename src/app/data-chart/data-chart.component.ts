@@ -1,10 +1,8 @@
 
 import {Component, OnInit} from '@angular/core';
-import { interval } from 'rxjs';
 
 import { DataGathererService } from '../data-gatherer/data-gatherer.service';
-
-const UPDATE_INTERVAL = 1000;
+import { RestService } from '../rest/rest.service';
 
 /*
  * ~ Chart Component ~
@@ -26,18 +24,30 @@ export class DataChartComponent implements OnInit {
   soilMoistureData = [{ data: [], label: 'Soil Moisture' }];
   sunlightData = [{ data: [], label: 'Sunlight' }];
 
-  chartLabels = [];
+  timestamps = [];
 
   ngOnInit() {
-    this.update();
+    this.getData();
   }
 
-  update() {
-    this.temperatureData[0].data = this.gatherer.temperatureData;
-    this.soilMoistureData[0].data = this.gatherer.soilMoistureData;
-    this.sunlightData[0].data = this.gatherer.sunlightData;
+  getData() {
+    this.rest.get()
+      .subscribe(
+        result => {
+          console.log(result);
+          this.timestamps.push(this.format(new Date(result.feeds[0].created_at)));
+          this.temperatureData[0].data.push(parseFloat(result.feeds[0].field1));
+          this.soilMoistureData[0].data.push(parseFloat(result.feeds[0].field3));
+          this.sunlightData[0].data.push(parseFloat(result.feeds[0].field4));
+        },
+        error => console.log("Error >>> " + error)
+      )
   }
 
-  constructor(private gatherer: DataGathererService) {}
+  format(date: Date) {
+    return date.getHours() + ':' + date.getMinutes();
+  }
+
+  constructor(private rest: RestService) {}
 
 }

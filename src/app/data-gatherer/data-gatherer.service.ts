@@ -23,16 +23,18 @@ export class DataGathererService implements OnInit {
 
   ngOnInit() {
     this.getData();
+    console.log(this.timestamps);
   }
 
   getData() {
     this.rest.get()
       .subscribe(
-        resultArray => {
-          this.timestamps.push(new Date(resultArray[0].feeds[0].created_at));
-          this.temperatureData.push(parseFloat(resultArray[0].feeds[0].field1));
-          this.soilMoistureData.push(parseFloat(resultArray[0].feeds[0].field3));
-          this.sunlightData.push(parseFloat(resultArray[0].feeds[0].field4));
+        result => {
+          this.timestamps.push(new Date(result[0].feeds[0].created_at));
+          this.temperatureData.push(parseFloat(result[0].feeds[0].field1));
+          this.soilMoistureData.push(parseFloat(result[0].feeds[0].field3));
+          this.sunlightData.push(parseFloat(result[0].feeds[0].field4));
+          console.log(result);
         },
         error => console.log("Error >>> " + error)
       )

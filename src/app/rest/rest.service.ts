@@ -14,11 +14,11 @@ export class RestService {
 
   constructor(private http: Http) {}
 
-  get(): Observable<ThingSpeakData[]> {
+  get(): Observable<ThingSpeakData> {
       return this.http
              .get(endpoint + 'feeds.json?results=1')
              .map((response: Response) => {
-                 return <ThingSpeakData[]>response.json();
+                 return <ThingSpeakData>response.json();
              })
              .catch(this.handleError);
   }

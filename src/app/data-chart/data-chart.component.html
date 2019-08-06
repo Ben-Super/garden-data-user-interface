@@ -3,7 +3,7 @@
       baseChart
       [chartType]="'line'"
       [datasets]="temperatureData"
-      [labels]="chartLabels"
+      [labels]="timestamps"
       [options]="chartOptions"
       [legend]="true">
   </canvas>
@@ -13,7 +13,7 @@
       baseChart
       [chartType]="'line'"
       [datasets]="soilMoistureData"
-      [labels]="chartLabels"
+      [labels]="timestamps"
       [options]="chartOptions"
       [legend]="true">
   </canvas>
@@ -23,8 +23,9 @@
       baseChart
       [chartType]="'line'"
       [datasets]="sunlightData"
-      [labels]="chartLabels"
+      [labels]="timestamps"
       [options]="chartOptions"
       [legend]="true">
   </canvas>
 </div>
+<div></div>
