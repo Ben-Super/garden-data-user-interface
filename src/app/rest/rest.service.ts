@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {Http, Response} from "@angular/http";
-import { Observable } from "rxjs/Observable";
- import "rxjs/Rx";
+import { Injectable } from "@angular/core";
+import { Http, Response } from "@angular/http";
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/map';
 import { ThingSpeakData } from './response-interface';
 
 const endpoint = 'https://api.thingspeak.com/channels/500326/';
