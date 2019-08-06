@@ -1,10 +1,18 @@
-<div>
-  <app-data-chart field='1' type='line'></app-data-chart>
-</div>
-<div>
-  <app-data-chart field='2' type='line'></app-data-chart>
-</div>
-<div>
-  <app-data-chart field='3' type='line'></app-data-chart>
+<div style="width: 100%;">
+  <mat-tab-group>
+    <mat-tab label="Temperature">
+      <app-data-chart field='1' type='line'></app-data-chart>
+    </mat-tab>
+    <mat-tab label="Soil Moisture">
+      <div>
+        <app-data-chart field='2' type='line'></app-data-chart>
+      </div>
+    </mat-tab>
+    <mat-tab label="Sunlight">
+      <div>
+        <app-data-chart field='3' type='line'></app-data-chart>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
 </div>
 <router-outlet></router-outlet>
