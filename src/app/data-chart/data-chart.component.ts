@@ -54,6 +54,10 @@ export class DataChartComponent implements OnInit {
     this.getData();
   }
 
+  refresh() {
+    
+  }
+
   getData() {
     this.rest.get()
       .subscribe(
@@ -62,6 +66,7 @@ export class DataChartComponent implements OnInit {
           this.temperatureData[0].data.push(parseFloat(result.feeds[0].field1));
           this.soilMoistureData[0].data.push(parseFloat(result.feeds[0].field3));
           this.sunlightData[0].data.push(parseFloat(result.feeds[0].field4));
+          this.refresh();
         },
         error => console.log("Error >>> " + error)
       )
