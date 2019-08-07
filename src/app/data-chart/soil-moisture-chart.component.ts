@@ -12,7 +12,7 @@ import { DataGathererService } from '../data-gatherer/data-gatherer.service';
   selector: 'sm-data-chart',
   templateUrl: './line-chart-template.html',
 })
-export class SoilMoistureChartChartComponent implements OnInit {
+export class SoilMoistureChartComponent implements OnInit {
   
   chartOptions = {
     responsive: true,
