@@ -7,6 +7,7 @@ import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
 import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,7 +33,8 @@ import { DayChartComponent } from './data-chart/day-chart.component';
     ChartsModule, 
     MatTabsModule, 
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatCardModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

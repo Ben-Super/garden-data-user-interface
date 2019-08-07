@@ -30,7 +30,6 @@ export class DayChartComponent implements OnInit {
   }
 
   changeFocus(day: DayDataChunk) {
-    console.log("Changed");
     this.selectedDay = day;
     this.sunData = [this.selectedDay.sunlight, 100 - this.selectedDay.sunlight];
   }

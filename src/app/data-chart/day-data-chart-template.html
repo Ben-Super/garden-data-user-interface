@@ -6,12 +6,30 @@
     </ng-container>
   </mat-menu>
 </div>
-<div style="width: 50%; padding-top: 20px;">
-  <canvas baseChart
-    [chartType]="'pie'"
-    [data]="sunData"
-    [labels]="labels"
-    [options]="chartOptions"
-    [legend]="true">
-  </canvas>
+<div>
+  <div style="width: 100%; padding-top: 20px;">
+    <canvas baseChart
+      [chartType]="'pie'"
+      [data]="sunData"
+      [labels]="labels"
+      [options]="chartOptions"
+      [legend]="true">
+    </canvas>
+  </div>
+  <mat-card style="width: 33%; padding-top: 50px; float: right;">
+    <mat-card-header>
+      <mat-card-title>{{ selectedDay.temperature }}</mat-card-title>
+      <mat-card-subtitle>Average Temperature</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content></mat-card-content>
+    <mat-card-actions></mat-card-actions>
+  </mat-card>
+  <mat-card style="width: 33%; padding-top: 50px; float: left;">
+    <mat-card-header>
+      <mat-card-title>{{ selectedDay.soil_moisture }}</mat-card-title>
+      <mat-card-subtitle>Average Soil Moisture</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content></mat-card-content>
+    <mat-card-actions></mat-card-actions>
+  </mat-card>
 </div>
