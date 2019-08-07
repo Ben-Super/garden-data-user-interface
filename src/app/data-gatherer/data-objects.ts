@@ -10,9 +10,9 @@ export class DayDataChunk {
   date: Date;
   temperature: number;
   soil_moisture: number;
-  sunlight: number[];
+  sunlight: number;
 
-  constructor(d: Date, t: number, sm: number, sn: number[]) {
+  constructor(d: Date, t: number, sm: number, sn: number) {
     this.date = d;
     this.temperature = t;
     this.soil_moisture = sm;

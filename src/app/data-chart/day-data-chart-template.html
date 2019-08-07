@@ -1,0 +1,17 @@
+<div style="width: 100%; padding-top: 20px;">
+  <button mat-button [matMenuTriggerFor]="menu">Choose Day</button>
+  <mat-menu #menu="matMenu">
+    <ng-container *ngFor="let day of gatherer.days">
+      <button (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
+    </ng-container>
+  </mat-menu>
+</div>
+<div style="width: 50%; padding-top: 20px;">
+  <canvas baseChart
+    [chartType]="'pie'"
+    [data]="sunData"
+    [labels]="labels"
+    [options]="chartOptions"
+    [legend]="true">
+  </canvas>
+</div>

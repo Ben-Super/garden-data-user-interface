@@ -34,8 +34,12 @@ export class SunlightChartComponent implements OnInit {
   }
 
   refresh() {
-    this.timestamps = this.gatherer.timestamps.slice(0);
+    this.timestamps = this.gatherer.timestamps.map(x => this.format(x));
     this.data[0].data = this.gatherer.sunlightData;
+  }
+
+  format(date: Date) {
+    return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
   }
 
   constructor() {}

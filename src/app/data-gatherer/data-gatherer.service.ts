@@ -15,9 +15,22 @@ import { interval } from 'rxjs';
 })
 export class DataGathererService {
 
-  public days: DayDataChunk[] = [];
+  public days: DayDataChunk[] = [
+    new DayDataChunk(
+      new Date("2019-08-06"),
+      22.6,
+      17.8,
+      19.7
+    ),
+    new DayDataChunk(
+      new Date("2019-08-07"),
+      72.6,
+      19.8,
+      49.7
+    ),
+  ];
   public today: Date;
-  public timestamps: string[] = [];
+  public timestamps: Date[] = [];
   public temperatureData: number[] = [];
   public soilMoistureData: number[] = [];
   public sunlightData: number[] = [];
@@ -30,17 +43,23 @@ export class DataGathererService {
     });
   }
 
-  storeDay(temp: number[], soil: number[], sun: number[]) {
+  storeDay() {
     this.days.push(new DayDataChunk(
       this.today, 
-      temp.reduce(getSum) / temp.length,
-      soil.reduce(getSum) / soil.length,
-      sun
+      this.temperatureData.reduce(getSum) / this.temperatureData.length,
+      this.soilMoistureData.reduce(getSum) / this.soilMoistureData.length,
+      this.calculateSunlight()
     ));
     function getSum(total, num) {
       return total + num;
     }
     if (this.days.length > 30) this.days.shift();
+    this.clearData();
+  }
+
+  calculateSunlight() {
+    return 50;
+    // TODO make this actually return a real value
   }
 
   getData() {
@@ -49,7 +68,7 @@ export class DataGathererService {
         result => {
           if (this.isNewData(result[0])) {
             this.today = new Date(result[0].created_at);
-            this.timestamps.push(this.format(this.today));
+            this.timestamps.push(this.today);
             this.temperatureData.push(parseFloat(result[0].field1));
             this.soilMoistureData.push(parseFloat(result[0].field3));
             this.sunlightData.push(parseFloat(result[0].field4));
@@ -59,16 +78,20 @@ export class DataGathererService {
       )
   }
 
+  clearData() {
+    this.today = undefined;
+    this.timestamps = [];
+    this.temperatureData = [];
+    this.soilMoistureData = [];
+    this.sunlightData = [];
+  }
+
   isNewData(result) {
     let index = this.timestamps.length - 1;
     if (index < 0) return true;
     return result.field1 != this.temperatureData[index] ||
             result.field3 != this.soilMoistureData[index] ||
             result.field4 != this.sunlightData[index];
-  }
-
-  format(date: Date) {
-    return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
   }
 
   check() {

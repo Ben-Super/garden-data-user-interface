@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { interval } from 'rxjs';
 import { DataGathererService } from '../data-gatherer/data-gatherer.service';
+import { DayDataChunk } from '../data-gatherer/data-objects';
 
 /*
  * ~ Day Chart Component ~
@@ -10,31 +11,28 @@ import { DataGathererService } from '../data-gatherer/data-gatherer.service';
  */
 @Component({
   selector: 'day-data-chart',
-  templateUrl: './line-chart-template.html',
+  templateUrl: './day-data-chart-template.html',
 })
 export class DayChartComponent implements OnInit {
-  
-  chartOptions = {
-    responsive: true,
-    scales: {
-      yAxes: [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max:100}}]
-    }
-  };
 
   @Input() gatherer: DataGathererService;
 
-  chartType = 'pie'
-  data = [{ data: [], label: 'Sunlight' }];
-  timestamps = [];
+  chartOptions = {
+    responsive: true,
+  };
+  sunData = [];
+  labels = ['Sun', 'No Sun'];
+  selectedDay: DayDataChunk;
 
   ngOnInit() {
-    interval(1000).subscribe(x => {
-      this.refresh();
-    });
+    this.selectedDay = this.gatherer.days[this.gatherer.days.length - 1];
+    this.sunData = [this.selectedDay.sunlight, 100 - this.selectedDay.sunlight];
   }
 
-  refresh() {
-    
+  changeFocus(day: DayDataChunk) {
+    console.log("Changed");
+    this.selectedDay = day;
+    this.sunData = [this.selectedDay.sunlight, 100 - this.selectedDay.sunlight];
   }
 
   constructor() {}
