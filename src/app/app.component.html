@@ -6,13 +6,13 @@
 
 <mat-tab-group>
   <mat-tab label="Temperature">
-    <app-data-chart field='1' type='line'></app-data-chart>
+    <temp-data-chart [gatherer]="gatherer"></temp-data-chart>
   </mat-tab>
   <mat-tab label="Soil Moisture">
-    <app-data-chart field='2' type='line'></app-data-chart>
+    <sm-data-chart [gatherer]="gatherer"></sm-data-chart>
   </mat-tab>
   <mat-tab label="Sunlight">
-    <app-data-chart field='3' type='line'></app-data-chart>
+    <sun-data-chart [gatherer]="gatherer"></sun-data-chart>
   </mat-tab>
   <mat-tab label="Past Days">
     <div style="width: 100%; padding-top: 20px;">

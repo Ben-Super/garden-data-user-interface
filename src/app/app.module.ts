@@ -10,10 +10,17 @@ import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataChartComponent } from './data-chart/data-chart.component';
+import { TemperatureChartComponent } from './data-chart/temperature-chart.component';
+import { SoilMoistureChartComponent } from './data-chart/soil-moisture-chart.component';
+import { SunlightChartComponent } from './data-chart/sunlight-chart.component';
 
 @NgModule({
-  declarations: [AppComponent, DataChartComponent],
+  declarations: [
+    AppComponent, 
+    TemperatureChartComponent, 
+    SoilMoistureChartComponent, 
+    SunlightChartComponent
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
