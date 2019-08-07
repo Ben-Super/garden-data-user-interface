@@ -1,5 +1,4 @@
-
-import {Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { DataGathererService } from '../data-gatherer/data-gatherer.service';
 import { RestService } from '../rest/rest.service';
@@ -55,17 +54,22 @@ export class DataChartComponent implements OnInit {
   }
 
   refresh() {
-    
+    this.timestamps = this.timestamps.slice(0);
+    this.temperatureData = Object.assign({}, this.temperatureData);
+    this.soilMoistureData = Object.assign({}, this.soilMoistureData);
+    this.sunlightData = Object.assign({}, this.sunlightData);
   }
 
   getData() {
     this.rest.get()
       .subscribe(
         result => {
-          this.timestamps.push(this.format(new Date(result.feeds[0].created_at)));
-          this.temperatureData[0].data.push(parseFloat(result.feeds[0].field1));
-          this.soilMoistureData[0].data.push(parseFloat(result.feeds[0].field3));
-          this.sunlightData[0].data.push(parseFloat(result.feeds[0].field4));
+          for (let i = 0; i < result.length; ++i) {
+            this.timestamps.push(this.format(new Date(result[i].created_at)));
+            this.temperatureData[0].data.push(parseFloat(result[i].field1));
+            this.soilMoistureData[0].data.push(parseFloat(result[i].field3));
+            this.sunlightData[0].data.push(parseFloat(result[i].field4));
+          }
           this.refresh();
         },
         error => console.log("Error >>> " + error)
