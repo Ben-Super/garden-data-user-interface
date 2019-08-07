@@ -17,11 +17,11 @@ export class RestService {
 
   get(): Observable<ThingSpeakData[]> {
       return this.http
-             .get(endpoint + 'feeds.json?results=2')
-             .map((response: Response) => {
-                 return <ThingSpeakData[]>response.json().feeds;
-             })
-             .catch(this.handleError);
+          .get(endpoint + 'feeds.json?results=1')
+          .map((response: Response) => {
+            return <ThingSpeakData[]>response.json().feeds;
+          })
+          .catch(this.handleError);
   }
 
   private handleError(error: Response) {
