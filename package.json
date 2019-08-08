@@ -18,6 +18,7 @@
     "chart.js": "2.8.0",
     "core-js": "2.6.9",
     "jasmine": "3.4.0",
+    "material-design-icons": "latest",
     "ng2-charts": "2.3.0",
     "rxjs": "6.5.2",
     "rxjs-compat": "^6.5.2",

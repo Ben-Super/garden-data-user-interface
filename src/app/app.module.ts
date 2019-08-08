@@ -2,12 +2,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ChartsModule } from 'ng2-charts';
 
@@ -30,10 +32,12 @@ import { DayChartComponent } from './data-chart/day-chart.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule, 
-    HttpModule, 
+    HttpModule,
+    HttpClientModule, 
     ChartsModule, 
     MatTabsModule, 
     MatToolbarModule,
+    MatIconModule,
     MatMenuModule,
     MatCardModule,
     FlexLayoutModule
