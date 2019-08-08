@@ -94,6 +94,14 @@ export class DataGathererService {
             result.field4 != this.sunlightData[index];
   }
 
+  getLastVals() {
+    return [
+      this.temperatureData[this.temperatureData.length - 1],
+      this.soilMoistureData[this.soilMoistureData.length - 1],
+      this.sunlightData[this.sunlightData.length - 1]
+    ];
+  }
+
   check() {
     console.log("Gatherer service initialized.");
   }
