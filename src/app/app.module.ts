@@ -1,17 +1,51 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { FlexLayoutModule } from "@angular/flex-layout";
+import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataGathererComponent } from './data-gatherer/data-gatherer.component';
+import { TemperatureChartComponent } from './data-chart/temperature-chart.component';
+import { SoilMoistureChartComponent } from './data-chart/soil-moisture-chart.component';
+import { SunlightChartComponent } from './data-chart/sunlight-chart.component';
+import { LatestComponent } from './data-chart/latest.component';
+import { DayChartComponent } from './data-chart/day-chart.component';
 
 @NgModule({
-  declarations: [AppComponent, DataGathererComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  declarations: [
+    AppComponent, 
+    TemperatureChartComponent, 
+    SoilMoistureChartComponent, 
+    SunlightChartComponent,
+    LatestComponent,
+    DayChartComponent
+  ],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule, 
+    HttpModule,
+    HttpClientModule, 
+    ChartsModule, 
+    MatTabsModule, 
+    MatToolbarModule,
+    MatIconModule,
+    MatMenuModule,
+    MatCardModule,
+    FlexLayoutModule
+  ],
   providers: [],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
