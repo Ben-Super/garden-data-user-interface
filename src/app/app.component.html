@@ -4,13 +4,12 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-tab-group>
-  <mat-tab label="Temperature">
+  <mat-tab label="Right Now">
+    
+  </mat-tab>
+  <mat-tab label="Today">
     <temp-data-chart [gatherer]="gatherer"></temp-data-chart>
-  </mat-tab>
-  <mat-tab label="Soil Moisture">
     <sm-data-chart [gatherer]="gatherer"></sm-data-chart>
-  </mat-tab>
-  <mat-tab label="Sunlight">
     <sun-data-chart [gatherer]="gatherer"></sun-data-chart>
   </mat-tab>
   <mat-tab label="Past Days">

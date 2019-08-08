@@ -34,6 +34,13 @@ export class DayChartComponent implements OnInit {
     this.sunData = [this.selectedDay.sunlight, 100 - this.selectedDay.sunlight];
   }
 
+  percentToDuration() {
+    let pct = this.sunData[0] / 100;
+    let x = pct * 24;
+    let y = x % 1 * 60;
+    return (x | 0) + 'h ' + (y | 0) + 'm';
+  }
+
   constructor() {}
 
 }

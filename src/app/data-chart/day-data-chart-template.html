@@ -1,8 +1,32 @@
-<div style="display: table-row;">
-  <div style="display: table-cell; width: 49.5%; padding-top: 1%; padding-right: 1%;">
-    <div>
+<div class="container" fxFlex="100%">
+  <div class="header">
+    <mat-toolbar color="#000000">
+  <mat-toolbar-row>
+    <span>{{ selectedDay.date.toDateString() }}</span>
+      <button mat-button [matMenuTriggerFor]="menu">Change Day</button>
+      <mat-menu #menu="matMenu">
+        <ng-container *ngFor="let day of gatherer.days">
+          <button (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
+        </ng-container>
+      </mat-menu>
+  </mat-toolbar-row>
+</mat-toolbar>
+  </div>
+  <div class="body">
+    <div class="data" fxFlex="100%">
       <mat-card>
-        <mat-card-title>Sunlight</mat-card-title>
+        <mat-card-header>
+          <mat-card-title>{{ selectedDay.soil_moisture }}%</mat-card-title>
+          <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
+          <mat-card-title>{{ selectedDay.temperature }} &#176;F</mat-card-title>
+          <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
+          <mat-card-title>{{ percentToDuration() }}</mat-card-title>
+          <mat-card-subtitle>Time in Sun</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+    <!--div class="pie-chart" fxFlex="50%">
+      <mat-card>
         <canvas baseChart
           [chartType]="'pie'"
           [data]="sunData"
@@ -11,40 +35,6 @@
           [legend]="true">
         </canvas>
       </mat-card>
-    </div>
+    </div-->
   </div>
-  <div style="display: table-cell; width: 49.5%;">
-    <div style="width: 100%; padding-bottom: 1%; padding-top: 1%; float: left;">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>Daily Averages</mat-card-title>
-          <mat-card-subtitle>{{ selectedDay.date.toDateString() }}</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    </div>
-    <div style="width: 49%; float: left;">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>{{ selectedDay.temperature }}</mat-card-title>
-          <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    </div>
-    <div style="width: 49%; float: right;">
-      <mat-card>
-        <mat-card-header>
-          <mat-card-title>{{ selectedDay.soil_moisture }}%</mat-card-title>
-          <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
-        </mat-card-header>
-      </mat-card>
-    </div>
-  </div>
-</div>
-<div style="width: 100%; padding-top: 20px;">
-  <button mat-button [matMenuTriggerFor]="menu">Choose Day</button>
-  <mat-menu #menu="matMenu">
-    <ng-container *ngFor="let day of gatherer.days">
-      <button (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
-    </ng-container>
-  </mat-menu>
 </div>
