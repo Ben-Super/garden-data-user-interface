@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { TemperatureChartComponent } from './data-chart/temperature-chart.component';
 import { SoilMoistureChartComponent } from './data-chart/soil-moisture-chart.component';
 import { SunlightChartComponent } from './data-chart/sunlight-chart.component';
+import { LatestComponent } from './data-chart/latest.component';
 import { DayChartComponent } from './data-chart/day-chart.component';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { DayChartComponent } from './data-chart/day-chart.component';
     TemperatureChartComponent, 
     SoilMoistureChartComponent, 
     SunlightChartComponent,
+    LatestComponent,
     DayChartComponent
   ],
   imports: [

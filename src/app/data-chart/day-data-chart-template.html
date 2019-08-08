@@ -1,16 +1,18 @@
 <div class="container" fxFlex="100%">
   <div class="header">
-    <mat-toolbar color="#000000">
-  <mat-toolbar-row>
-    <span>{{ selectedDay.date.toDateString() }}</span>
-      <button mat-button [matMenuTriggerFor]="menu">Change Day</button>
-      <mat-menu #menu="matMenu">
-        <ng-container *ngFor="let day of gatherer.days">
-          <button (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
-        </ng-container>
-      </mat-menu>
-  </mat-toolbar-row>
-</mat-toolbar>
+  <mat-toolbar color="#000000">
+    <mat-toolbar-row>
+      <div fxFlex>{{ selectedDay.date.toDateString() }}</div>
+      <div>
+        <button mat-button [matMenuTriggerFor]="menu">Change Day</button>
+        <mat-menu #menu="matMenu">
+          <ng-container *ngFor="let day of gatherer.days">
+            <button (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
+          </ng-container>
+        </mat-menu>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
   </div>
   <div class="body">
     <div class="data" fxFlex="100%">
@@ -25,7 +27,7 @@
         </mat-card-header>
       </mat-card>
     </div>
-    <!--div class="pie-chart" fxFlex="50%">
+    <div class="pie-chart" fxFlex="50%">
       <mat-card>
         <canvas baseChart
           [chartType]="'pie'"
@@ -35,6 +37,6 @@
           [legend]="true">
         </canvas>
       </mat-card>
-    </div-->
+    </div>
   </div>
 </div>

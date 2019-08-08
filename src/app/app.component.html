@@ -5,30 +5,26 @@
 </mat-toolbar>
 <mat-tab-group>
   <mat-tab label="Right Now">
-    <div class="container" fxFlex="100%">
-      <div class="body">
-        <div class="data" fxFlex="100%">
-          <mat-card>
-            <mat-card-header>
-              <mat-card-title>{{ gatherer.getLastVals()[1] }}%</mat-card-title>
-              <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
-              <mat-card-title>{{ gatherer.getLastVals()[0] }} &#176;F</mat-card-title>
-              <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
-              <mat-card-title>{{ gatherer.getLastVals()[2] }}</mat-card-title>
-              <mat-card-subtitle>Sunlight</mat-card-subtitle>
-            </mat-card-header>
-          </mat-card>
-        </div>
-      </div>
-    </div>
+    <latest-section [gatherer]="gatherer"></latest-section>
   </mat-tab>
   <mat-tab label="Today">
-    <temp-data-chart [gatherer]="gatherer"></temp-data-chart>
-    <sm-data-chart [gatherer]="gatherer"></sm-data-chart>
-    <sun-data-chart [gatherer]="gatherer"></sun-data-chart>
+    <mat-tab-group>
+      <mat-tab label="Temperature">
+        <temp-data-chart [gatherer]="gatherer"></temp-data-chart>
+      </mat-tab>
+      <mat-tab label="Soil Moisture">
+        <sm-data-chart [gatherer]="gatherer"></sm-data-chart>
+      </mat-tab>
+      <mat-tab label="Sunlight">
+        <sun-data-chart [gatherer]="gatherer"></sun-data-chart>
+      </mat-tab>
+    </mat-tab-group>
   </mat-tab>
-  <mat-tab label="Past Days">
+  <mat-tab label="Previous Days">
     <day-data-chart [gatherer]="gatherer"></day-data-chart>
+  </mat-tab>
+  <mat-tab label="Previous Month">
+    Coming Soon!
   </mat-tab>
 </mat-tab-group>
 
