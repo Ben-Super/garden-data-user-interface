@@ -17,7 +17,19 @@ export class SunlightChartComponent implements OnInit {
   chartOptions = {
     responsive: true,
     scales: {
-      yAxes: [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max:100}}]
+      yAxes: [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max:1000}}]
+    },
+    annotation: {
+      annotations: [{
+        drawTime: "beforeDatasetsDraw",
+        type: "box",
+        xScaleID: "x-axis-0",
+        yScaleID: "y-axis-0",
+        borderWidth: 0,
+        yMin: 60,
+        yMax: 90,
+        backgroundColor: "rgba(46, 204, 113,0.3)"
+      }]
     }
   };
 

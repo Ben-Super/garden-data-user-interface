@@ -71,7 +71,7 @@ export class DataGathererService {
             this.timestamps.push(this.today);
             this.temperatureData.push(parseFloat(result[0].field1));
             this.soilMoistureData.push(parseFloat(result[0].field3));
-            this.sunlightData.push(parseFloat(result[0].field4));
+            this.sunlightData.push(parseFloat(result[0].field6));
           }
         },
         error => console.log("Error >>> " + error)
@@ -87,11 +87,10 @@ export class DataGathererService {
   }
 
   isNewData(result) {
-    let index = this.timestamps.length - 1;
-    if (index < 0) return true;
-    return result.field1 != this.temperatureData[index] ||
-            result.field3 != this.soilMoistureData[index] ||
-            result.field4 != this.sunlightData[index];
+    let date1 = new Date(result.created_at);
+    if (this.timestamps.length - 1 < 0) return true;
+    let date2 = this.timestamps[this.timestamps.length - 1];
+    return date1.getTime() != date2.getTime();
   }
 
   check() {

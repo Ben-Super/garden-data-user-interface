@@ -4,26 +4,50 @@
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-tab-group>
-  <mat-tab label="Right Now">
+  <mat-tab label="Latest">
     <latest-section [gatherer]="gatherer"></latest-section>
   </mat-tab>
   <mat-tab label="Today">
     <mat-tab-group>
       <mat-tab label="Temperature">
         <temp-data-chart [gatherer]="gatherer"></temp-data-chart>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Approximate Reference</mat-card-title>
+            <mat-card-subtitle>
+              Temperatures between 60 and 90 degrees are considered best for plant growth.
+            </mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
       </mat-tab>
       <mat-tab label="Soil Moisture">
         <sm-data-chart [gatherer]="gatherer"></sm-data-chart>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Approximate Reference</mat-card-title>
+            <mat-card-subtitle>Less than 60% &#8594; Very Low</mat-card-subtitle>
+            <mat-card-subtitle>61-79% &#8594; Good</mat-card-subtitle>
+            <mat-card-subtitle>80+ &#8594; Ideal</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
       </mat-tab>
       <mat-tab label="Sunlight">
         <sun-data-chart [gatherer]="gatherer"></sun-data-chart>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Approximate Reference</mat-card-title>
+            <mat-card-subtitle>1-49 &#8594; Darkness</mat-card-subtitle>
+            <mat-card-subtitle>50-500 &#8594; Cloudy / Shade</mat-card-subtitle>
+            <mat-card-subtitle>500+ &#8594; Sunny</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
       </mat-tab>
     </mat-tab-group>
   </mat-tab>
-  <mat-tab label="Previous Days">
+  <mat-tab label="Past Days">
     <day-data-chart [gatherer]="gatherer"></day-data-chart>
   </mat-tab>
-  <mat-tab label="Previous Month">
+  <mat-tab label="Past Month">
     Coming Soon!
   </mat-tab>
 </mat-tab-group>

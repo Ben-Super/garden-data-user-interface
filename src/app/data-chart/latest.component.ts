@@ -28,4 +28,16 @@ export class LatestComponent implements OnInit {
       this.gatherer.sunlightData[this.gatherer.sunlightData.length - 1]
     ];
   }
+
+  getLastTimestamp() {
+    if (this.gatherer.today != undefined) {
+      return this.gatherer.today.toDateString() + ' at ' + this.format(this.gatherer.today);
+    } else {
+      return "No Data Found";
+    }
+  }
+
+  format(date: Date) {
+    return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+  }
 }
