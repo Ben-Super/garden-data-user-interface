@@ -4,10 +4,10 @@
     <mat-toolbar-row>
       <div fxFlex>Averages for {{ selectedDay.date.toDateString() }}</div>
       <div>
-        <button mat-button [matMenuTriggerFor]="menu">Change Day</button>
+        <button mat-menu-item [matMenuTriggerFor]="menu">Change Day</button>
         <mat-menu #menu="matMenu">
           <ng-container *ngFor="let day of gatherer.days">
-            <button (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
+            <button mat-menu-item (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
           </ng-container>
         </mat-menu>
       </div>

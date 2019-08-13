@@ -15,7 +15,20 @@ import { interval } from 'rxjs';
 })
 export class DataGathererService {
 
-  public days: DayDataChunk[] = [];
+  public days: DayDataChunk[] = [
+    new DayDataChunk(
+      new Date("2019-08-06"),
+      22.6,
+      17.8,
+      19.7
+    ),
+    new DayDataChunk(
+      new Date("2019-08-07"),
+      72.6,
+      19.8,
+      49.7
+    ),
+  ];
   public today: Date = new Date();
   public timestamps: Date[] = [];
   public temperatureData: number[] = [];
