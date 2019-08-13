@@ -11,23 +11,25 @@
       <mat-card-header>
         <mat-card-title>
           <mat-icon>whatshot</mat-icon>
-          {{ getLastVals()[0] }} &#176;F
+          {{ gatherer.isGoodTemp(getLastVals()[0]) }}
+          ({{ getLastVals()[0] }}&#176;F)
         </mat-card-title>
         <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
       </mat-card-header>
       <mat-card-header>
         <mat-card-title>
           <mat-icon>format_color_fill</mat-icon>
-          {{ getLastVals()[1] }}%
+          {{ gatherer.isGoodMoisture(getLastVals()[1]) }}
+          ({{ getLastVals()[1] }}%)
         </mat-card-title>
         <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
       </mat-card-header>
       <mat-card-header>
         <mat-card-title>
           <mat-icon>wb_sunny</mat-icon>
-          {{ isInSun() }}
+          {{ gatherer.isInSun(getLastVals()[2]) }}
         </mat-card-title>
-        <mat-card-subtitle>In the Sun?</mat-card-subtitle>
+        <mat-card-subtitle>Sun Status</mat-card-subtitle>
       </mat-card-header>
     </mat-card>
   </div>

@@ -15,7 +15,8 @@
           <mat-card-header>
             <mat-card-title>Approximate Reference</mat-card-title>
             <mat-card-subtitle>
-              Temperatures between 60 and 90 degrees are considered best for plant growth.
+              Temperatures between {{ lowerTemp }} and {{ upperTemp }}
+               degrees are considered best for plant growth.
             </mat-card-subtitle>
           </mat-card-header>
         </mat-card>
@@ -25,9 +26,15 @@
         <mat-card>
           <mat-card-header>
             <mat-card-title>Approximate Reference</mat-card-title>
-            <mat-card-subtitle>Less than 20% &#8594; Too Low</mat-card-subtitle>
-            <mat-card-subtitle>21-59% &#8594; Acceptable</mat-card-subtitle>
-            <mat-card-subtitle>60+ &#8594; Too High</mat-card-subtitle>
+            <mat-card-subtitle>
+              Less than {{ lowerSoil }}% &#8594; Too Dry
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+              {{ lowerSoil }}-{{ upperSoil }}% &#8594; Acceptable
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+              More than {{ upperSoil }}% &#8594; Too Wet
+            </mat-card-subtitle>
           </mat-card-header>
         </mat-card>
       </mat-tab>
@@ -37,8 +44,8 @@
           <mat-card-header>
             <mat-card-title>Approximate Reference</mat-card-title>
             <mat-card-subtitle>1-49 &#8594; Darkness</mat-card-subtitle>
-            <mat-card-subtitle>50-500 &#8594; Cloudy / Shade</mat-card-subtitle>
-            <mat-card-subtitle>500+ &#8594; Sunny</mat-card-subtitle>
+            <mat-card-subtitle>50-{{ inSun }} &#8594; Cloudy / Shade</mat-card-subtitle>
+            <mat-card-subtitle>{{ inSun }}+ &#8594; Sunny</mat-card-subtitle>
           </mat-card-header>
         </mat-card>
       </mat-tab>

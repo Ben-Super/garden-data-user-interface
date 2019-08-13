@@ -2,7 +2,7 @@
   <div class="header">
   <mat-toolbar color="#000000">
     <mat-toolbar-row>
-      <div fxFlex>Last {{ daysRecorded }} days</div>
+      <div fxFlex>Averages for the Last {{ daysRecorded }} Days</div>
     </mat-toolbar-row>
   </mat-toolbar>
   </div>
@@ -12,14 +12,16 @@
         <mat-card-header>
           <mat-card-title>
             <mat-icon>whatshot</mat-icon>
-            {{ averages[0] | number: '1.1-1' }} &#176;F
+            {{ gatherer.isGoodTemp(averages[0]) }}
+            ({{ averages[0] | number: '1.1-1' }}&#176;F)
           </mat-card-title>
           <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
         </mat-card-header>
         <mat-card-header>
           <mat-card-title>
             <mat-icon>format_color_fill</mat-icon>
-            {{ averages[1] | number: '1.1-1' }}%
+            {{ gatherer.isGoodMoisture(averages[1]) }}
+            ({{ averages[1] | number: '1.1-1' }}%)
           </mat-card-title>
           <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
         </mat-card-header>

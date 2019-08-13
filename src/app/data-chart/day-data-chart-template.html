@@ -20,20 +20,22 @@
   <div class="body">
     <div class="data" fxFlex="100%" fxLayoutAlign="center">
       <mat-card fxFlex="100%">
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>whatshot</mat-icon>
-            {{ selectedDay.temperature }} &#176;F
-          </mat-card-title>
-          <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-header>
-          <mat-card-title>
-            <mat-icon>format_color_fill</mat-icon>
-            {{ selectedDay.soil_moisture }}%
-          </mat-card-title>
-          <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
-        </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>whatshot</mat-icon>
+          {{ gatherer.isGoodTemp(selectedDay.temperature) }}
+          ({{ selectedDay.temperature }}&#176;F)
+        </mat-card-title>
+        <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>format_color_fill</mat-icon>
+          {{ gatherer.isGoodMoisture(selectedDay.soil_moisture) }}
+          ({{ selectedDay.soil_moisture }}%)
+        </mat-card-title>
+        <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
+      </mat-card-header>
         <mat-card-header>
           <mat-card-title>
             <mat-icon>wb_sunny</mat-icon>

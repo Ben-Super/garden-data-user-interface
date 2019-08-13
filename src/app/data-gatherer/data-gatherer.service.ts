@@ -5,6 +5,11 @@ import { RestService } from '../rest/rest.service';
 import { interval } from 'rxjs';
 
 export const IN_SUN_THRESHOLD = 500;
+export const IN_SHADE_THRESHOLD = 50;
+export const SOIL_UPPER_THRESHOLD = 60;
+export const SOIL_LOWER_THRESHOLD = 20;
+export const TEMP_UPPER_THRESHOLD = 90;
+export const TEMP_LOWER_THRESHOLD = 60;
 
 /*
  * ~ Data Gatherer ~
@@ -110,6 +115,42 @@ export class DataGathererService {
       if (n >= IN_SUN_THRESHOLD) ++count;
     }
     return count / 96;
+  }
+
+  isGoodTemp(temp: number) {
+    if (this.timestamps.length < 1) {
+      return 'No Data';
+    } else if (temp < TEMP_LOWER_THRESHOLD) {
+      return 'Too Cold';
+    } else if (temp > TEMP_UPPER_THRESHOLD) {
+      return 'Too Hot';
+    } else {
+      return 'Good';
+    }
+  }
+
+  isGoodMoisture(soil: number) {
+    if (this.timestamps.length < 1) {
+      return 'No Data';
+    } else if (soil < SOIL_LOWER_THRESHOLD) {
+      return 'Too Dry';
+    } else if (soil > SOIL_UPPER_THRESHOLD) {
+      return 'Too Wet';
+    } else {
+      return 'Good';
+    }
+  }
+
+  isInSun(sun: number) {
+    if (this.timestamps.length < 1) {
+      return 'No Data';
+    } else if (sun >= IN_SUN_THRESHOLD) {
+      return 'Sunny';
+    } else if (sun >= IN_SHADE_THRESHOLD) {
+      return 'Cloudy / Shady';
+    } else {
+      return 'Night';
+    }
   }
 
   check() {
