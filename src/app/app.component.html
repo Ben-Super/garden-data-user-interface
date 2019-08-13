@@ -16,7 +16,7 @@
             <mat-card-title>Approximate Reference</mat-card-title>
             <mat-card-subtitle>
               Temperatures between {{ lowerTemp }} and {{ upperTemp }}
-               degrees are considered best for plant growth.
+               degrees are considered best for most plants.
             </mat-card-subtitle>
           </mat-card-header>
         </mat-card>
@@ -43,9 +43,15 @@
         <mat-card>
           <mat-card-header>
             <mat-card-title>Approximate Reference</mat-card-title>
-            <mat-card-subtitle>1-49 &#8594; Darkness</mat-card-subtitle>
-            <mat-card-subtitle>50-{{ inSun }} &#8594; Cloudy / Shade</mat-card-subtitle>
-            <mat-card-subtitle>{{ inSun }}+ &#8594; Sunny</mat-card-subtitle>
+            <mat-card-subtitle>
+              0-{{ inShade - 1 }} &#8594; Darkness
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+              {{ inShade }}-{{ inSun - 1 }} &#8594; Cloudy / Shade
+            </mat-card-subtitle>
+            <mat-card-subtitle>
+              {{ inSun }}+ &#8594; Sunny
+            </mat-card-subtitle>
           </mat-card-header>
         </mat-card>
       </mat-tab>

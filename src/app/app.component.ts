@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { 
   DataGathererService,
   IN_SUN_THRESHOLD,
+  IN_SHADE_THRESHOLD,
   TEMP_UPPER_THRESHOLD,
   TEMP_LOWER_THRESHOLD,
   SOIL_UPPER_THRESHOLD,
@@ -16,6 +17,7 @@ import {
 export class AppComponent implements OnInit {
   title = 'garden-data-ui';
   inSun: number = IN_SUN_THRESHOLD;
+  inShade: number = IN_SHADE_THRESHOLD;
   upperTemp: number = TEMP_UPPER_THRESHOLD;
   lowerTemp: number = TEMP_LOWER_THRESHOLD;
   upperSoil: number = SOIL_UPPER_THRESHOLD;
