@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { Color, BaseChartDirective } from 'ng2-charts';
-import { DataGathererService } from '../data-gatherer/data-gatherer.service';
+import { DataGathererService, IN_SUN_THRESHOLD } from '../data-gatherer/data-gatherer.service';
 
 /*
  * ~ Sunlight Chart Component ~
@@ -20,7 +20,7 @@ export class SunlightChartComponent implements OnInit {
   @Input() gatherer: DataGathererService;
 
   public lineChartData: ChartDataSets[] = [
-    { data: [], fill: false, label: 'Soil Moisture' }
+    { data: [], fill: false, label: 'Sunlight' }
   ];
   public timestamps: string[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
@@ -42,7 +42,7 @@ export class SunlightChartComponent implements OnInit {
         xScaleID: "x-axis-0",
         yScaleID: "y-axis-0",
         borderWidth: 0,
-        yMin: 500,
+        yMin: IN_SUN_THRESHOLD,
         yMax: 1000,
         backgroundColor: "rgba(46, 204, 113,0.3)"
       }],

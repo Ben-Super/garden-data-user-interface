@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DataGathererService } from '../data-gatherer/data-gatherer.service';
+import { DataGathererService, IN_SUN_THRESHOLD } from '../data-gatherer/data-gatherer.service';
 
 /*
  * ~ Latest Component ~
@@ -22,6 +22,7 @@ export class LatestComponent implements OnInit {
   }
 
   getLastVals() {
+    if (this.gatherer.timestamps.length < 1) return [0, 0, 0];
     return [
       this.gatherer.temperatureData[this.gatherer.temperatureData.length - 1],
       this.gatherer.soilMoistureData[this.gatherer.soilMoistureData.length - 1],
@@ -35,6 +36,11 @@ export class LatestComponent implements OnInit {
     } else {
       return "No Data Found";
     }
+  }
+
+  isInSun() {
+    return this.gatherer.sunlightData[this.gatherer.sunlightData.length - 1] >= IN_SUN_THRESHOLD ? 
+    'Yes' : 'No';
   }
 
   format(date: Date) {

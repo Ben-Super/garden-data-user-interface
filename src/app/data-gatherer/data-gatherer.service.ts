@@ -4,6 +4,8 @@ import { ThingSpeakData } from '../rest/response-interface';
 import { RestService } from '../rest/rest.service';
 import { interval } from 'rxjs';
 
+export const IN_SUN_THRESHOLD = 500;
+
 /*
  * ~ Data Gatherer ~
  * 
@@ -18,15 +20,21 @@ export class DataGathererService {
   public days: DayDataChunk[] = [
     new DayDataChunk(
       new Date("2019-08-06"),
-      22.6,
-      17.8,
-      19.7
+      62.0,
+      54.6,
+      29.7
     ),
     new DayDataChunk(
       new Date("2019-08-07"),
       72.6,
       19.8,
-      49.7
+      46.3
+    ),
+    new DayDataChunk(
+      new Date("2019-08-08"),
+      53.7,
+      34.6,
+      33.2
     ),
   ];
   public today: Date = new Date();
@@ -99,7 +107,7 @@ export class DataGathererService {
   calculateSunlight() {
     let count = 0;
     for (let n of this.sunlightData) {
-      if (n >= 500) ++count;
+      if (n >= IN_SUN_THRESHOLD) ++count;
     }
     return count / 96;
   }

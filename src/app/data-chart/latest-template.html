@@ -9,12 +9,25 @@
   <div class="data" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="1%">
     <mat-card fxFlex="100%">
       <mat-card-header>
-        <mat-card-title>{{ getLastVals()[0] }} &#176;F</mat-card-title>
+        <mat-card-title>
+          <mat-icon>whatshot</mat-icon>
+          {{ getLastVals()[0] }} &#176;F
+        </mat-card-title>
         <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
-        <mat-card-title>{{ getLastVals()[1] }}%</mat-card-title>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>format_color_fill</mat-icon>
+          {{ getLastVals()[1] }}%
+        </mat-card-title>
         <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
-        <mat-card-title>{{ getLastVals()[2] }}</mat-card-title>
-        <mat-card-subtitle>Sunlight</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>wb_sunny</mat-icon>
+          {{ isInSun() }}
+        </mat-card-title>
+        <mat-card-subtitle>In the Sun?</mat-card-subtitle>
       </mat-card-header>
     </mat-card>
   </div>

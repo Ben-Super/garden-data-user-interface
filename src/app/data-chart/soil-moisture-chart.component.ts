@@ -20,7 +20,7 @@ export class SoilMoistureChartComponent implements OnInit {
   @Input() gatherer: DataGathererService;
 
   public lineChartData: ChartDataSets[] = [
-    { data: [], fill: false, label: 'Sunlight' }
+    { data: [], fill: false, label: 'Soil Moisture' }
   ];
   public timestamps: string[] = [];
   public lineChartOptions: (ChartOptions & { annotation: any }) = {

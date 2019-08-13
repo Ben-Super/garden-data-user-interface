@@ -10,30 +10,39 @@ import { DayDataChunk } from '../data-gatherer/data-objects';
  * 
  */
 @Component({
-  selector: 'day-data-chart',
-  templateUrl: './day-data-chart-template.html',
+  selector: 'month-data-chart',
+  templateUrl: './month-data-chart-template.html',
 })
 export class MonthChartComponent implements OnInit {
 
   @Input() gatherer: DataGathererService;
 
-  daysRecorded: number;
+  daysRecorded: number = 0;
+  averages: number[] = [0, 0, 0];
 
   ngOnInit() {
-    this.daysRecorded = this.gatherer.days.length;
+    interval(1000).subscribe(x => {
+      this.daysRecorded = this.gatherer.days.length;
+      this.averages = this.getAverages();
+    });
   }
 
-  changeFocus(day: DayDataChunk) {
-    
+  getAverages() {
+    let sum1 = 0, sum2 = 0, sum3 = 0;
+    for(let d of this.gatherer.days) {
+      sum1 += d.temperature;
+      sum2 += d.soil_moisture;
+      sum3 += d.sunlight;
+    }
+    return [sum1 / this.daysRecorded, sum2 / this.daysRecorded, sum3 / this.daysRecorded];
   }
   
-  // TODO
-  // avgSunlightDuration() {
-  //   let pct =  / 100;
-  //   let x = pct * 24;
-  //   let y = x % 1 * 60;
-  //   return (x | 0) + 'h ' + (y | 0) + 'm';
-  // }
+  avgSunlightDuration() {
+    let pct = this.averages[2] / 100;
+    let x = pct * 24;
+    let y = x % 1 * 60;
+    return (x | 0) + 'h ' + (y | 0) + 'm';
+  }
 
   constructor() {}
 

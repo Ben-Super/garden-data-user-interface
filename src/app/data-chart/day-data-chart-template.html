@@ -4,7 +4,10 @@
     <mat-toolbar-row>
       <div fxFlex>Averages for {{ selectedDay.date.toDateString() }}</div>
       <div>
-        <button mat-menu-item [matMenuTriggerFor]="menu">Change Day</button>
+        <button mat-menu-item [matMenuTriggerFor]="menu">
+          Change Day
+          <mat-icon>calendar_today</mat-icon>
+        </button>
         <mat-menu #menu="matMenu">
           <ng-container *ngFor="let day of gatherer.days">
             <button mat-menu-item (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
@@ -15,14 +18,27 @@
   </mat-toolbar>
   </div>
   <div class="body">
-    <div class="data" fxFlex="100%">
-      <mat-card>
+    <div class="data" fxFlex="100%" fxLayoutAlign="center">
+      <mat-card fxFlex="100%">
         <mat-card-header>
-          <mat-card-title>{{ selectedDay.soil_moisture }}%</mat-card-title>
-          <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
-          <mat-card-title>{{ selectedDay.temperature }} &#176;F</mat-card-title>
+          <mat-card-title>
+            <mat-icon>whatshot</mat-icon>
+            {{ selectedDay.temperature }} &#176;F
+          </mat-card-title>
           <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
-          <mat-card-title>{{ percentToDuration() }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>format_color_fill</mat-icon>
+            {{ selectedDay.soil_moisture }}%
+          </mat-card-title>
+          <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>wb_sunny</mat-icon>
+            {{ percentToDuration() }}
+          </mat-card-title>
           <mat-card-subtitle>Time in Sun</mat-card-subtitle>
         </mat-card-header>
       </mat-card>

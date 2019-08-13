@@ -20,6 +20,7 @@ import { SoilMoistureChartComponent } from './data-chart/soil-moisture-chart.com
 import { SunlightChartComponent } from './data-chart/sunlight-chart.component';
 import { LatestComponent } from './data-chart/latest.component';
 import { DayChartComponent } from './data-chart/day-chart.component';
+import { MonthChartComponent } from './data-chart/month-chart.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DayChartComponent } from './data-chart/day-chart.component';
     SoilMoistureChartComponent, 
     SunlightChartComponent,
     LatestComponent,
-    DayChartComponent
+    DayChartComponent,
+    MonthChartComponent
   ],
   imports: [
     BrowserModule,

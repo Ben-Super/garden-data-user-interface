@@ -2,41 +2,35 @@
   <div class="header">
   <mat-toolbar color="#000000">
     <mat-toolbar-row>
-      <div fxFlex>Last</div>
-      <div>
-        <button mat-button [matMenuTriggerFor]="menu">Change Day</button>
-        <mat-menu #menu="matMenu">
-          <ng-container *ngFor="let day of gatherer.days">
-            <button (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
-          </ng-container>
-        </mat-menu>
-      </div>
+      <div fxFlex>Last {{ daysRecorded }} days</div>
     </mat-toolbar-row>
   </mat-toolbar>
   </div>
   <div class="body">
-    <div class="data" fxFlex="100%">
-      <mat-card>
+    <div class="data" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="1%">
+      <mat-card fxFlex="100%">
         <mat-card-header>
-          <mat-card-title>{{ selectedDay.soil_moisture }}%</mat-card-title>
-          <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
-          <mat-card-title>{{ selectedDay.temperature }} &#176;F</mat-card-title>
+          <mat-card-title>
+            <mat-icon>whatshot</mat-icon>
+            {{ averages[0] | number: '1.1-1' }} &#176;F
+          </mat-card-title>
           <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
-          <mat-card-title>{{ percentToDuration() }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>format_color_fill</mat-icon>
+            {{ averages[1] | number: '1.1-1' }}%
+          </mat-card-title>
+          <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>wb_sunny</mat-icon>
+            {{ avgSunlightDuration() }}
+          </mat-card-title>
           <mat-card-subtitle>Time in Sun</mat-card-subtitle>
         </mat-card-header>
       </mat-card>
     </div>
-    <!--div class="pie-chart" fxFlex="50%" fxFill>
-      <mat-card>
-        <canvas baseChart
-          [chartType]="'pie'"
-          [data]="sunData"
-          [labels]="labels"
-          [options]="chartOptions"
-          [legend]="true">
-        </canvas>
-      </mat-card>
-    </div-->
   </div>
 </div>
