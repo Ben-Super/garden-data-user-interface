@@ -15,21 +15,8 @@ import { interval } from 'rxjs';
 })
 export class DataGathererService {
 
-  public days: DayDataChunk[] = [
-    new DayDataChunk(
-      new Date("2019-08-06"),
-      22.6,
-      17.8,
-      19.7
-    ),
-    new DayDataChunk(
-      new Date("2019-08-07"),
-      72.6,
-      19.8,
-      49.7
-    ),
-  ];
-  public today: Date;
+  public days: DayDataChunk[] = [];
+  public today: Date = new Date();
   public timestamps: Date[] = [];
   public temperatureData: number[] = [];
   public soilMoistureData: number[] = [];
@@ -41,6 +28,45 @@ export class DataGathererService {
     interval(1000).subscribe(x => {
       this.getData();
     });
+  }
+
+  getData() {
+    this.rest.get()
+      .subscribe(
+        result => {
+          if (this.isNewDay(result[0])) this.storeDay();
+          if (this.isNewData(result[0])) {
+            this.today = new Date(result[0].created_at);
+            this.timestamps.push(this.today);
+            this.temperatureData.push(parseFloat(result[0].field1));
+            this.soilMoistureData.push(parseFloat(result[0].field3));
+            this.sunlightData.push(parseFloat(result[0].field6));
+          }
+        },
+        error => console.log("Error >>> " + error)
+      )
+  }
+
+  clearData() {
+    this.today = new Date();
+    this.timestamps = [];
+    this.temperatureData = [];
+    this.soilMoistureData = [];
+    this.sunlightData = [];
+  }
+
+  isNewData(result) {
+    let date1 = new Date(result.created_at);
+    if (this.timestamps.length - 1 < 0) return true;
+    let date2 = this.timestamps[this.timestamps.length - 1];
+    return date1.getTime() != date2.getTime();
+  }
+
+  isNewDay(result) {
+    let date = new Date(result.created_at);
+    return this.today.getMonth() != date.getMonth() ||
+            this.today.getDate() != date.getDate() ||
+            this.today.getFullYear() != date.getFullYear();
   }
 
   storeDay() {
@@ -58,39 +84,11 @@ export class DataGathererService {
   }
 
   calculateSunlight() {
-    return 50;
-    // TODO make this actually return a real value
-  }
-
-  getData() {
-    this.rest.get()
-      .subscribe(
-        result => {
-          if (this.isNewData(result[0])) {
-            this.today = new Date(result[0].created_at);
-            this.timestamps.push(this.today);
-            this.temperatureData.push(parseFloat(result[0].field1));
-            this.soilMoistureData.push(parseFloat(result[0].field3));
-            this.sunlightData.push(parseFloat(result[0].field6));
-          }
-        },
-        error => console.log("Error >>> " + error)
-      )
-  }
-
-  clearData() {
-    this.today = undefined;
-    this.timestamps = [];
-    this.temperatureData = [];
-    this.soilMoistureData = [];
-    this.sunlightData = [];
-  }
-
-  isNewData(result) {
-    let date1 = new Date(result.created_at);
-    if (this.timestamps.length - 1 < 0) return true;
-    let date2 = this.timestamps[this.timestamps.length - 1];
-    return date1.getTime() != date2.getTime();
+    let count = 0;
+    for (let n of this.sunlightData) {
+      if (n >= 500) ++count;
+    }
+    return count / 96;
   }
 
   check() {

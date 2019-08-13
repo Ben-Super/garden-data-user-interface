@@ -1,5 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { interval } from 'rxjs';
+import { ChartDataSets, ChartOptions } from 'chart.js';
+import * as pluginAnnotations from 'chartjs-plugin-annotation';
+import { Color, BaseChartDirective } from 'ng2-charts';
 import { DataGathererService } from '../data-gatherer/data-gatherer.service';
 
 /*
@@ -13,11 +16,24 @@ import { DataGathererService } from '../data-gatherer/data-gatherer.service';
   templateUrl: './line-chart-template.html',
 })
 export class SunlightChartComponent implements OnInit {
-  
-  chartOptions = {
+
+  @Input() gatherer: DataGathererService;
+
+  public lineChartData: ChartDataSets[] = [
+    { data: [], fill: false, label: 'Soil Moisture' }
+  ];
+  public timestamps: string[] = [];
+  public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
-      yAxes: [{id: 'y-axis-1', type: 'linear', position: 'left', ticks: {min: 0, max:1000}}]
+      xAxes: [{}],
+      yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+          ticks: {min: 0, max:1000}
+        },
+      ]
     },
     annotation: {
       annotations: [{
@@ -26,18 +42,25 @@ export class SunlightChartComponent implements OnInit {
         xScaleID: "x-axis-0",
         yScaleID: "y-axis-0",
         borderWidth: 0,
-        yMin: 60,
-        yMax: 90,
+        yMin: 500,
+        yMax: 1000,
         backgroundColor: "rgba(46, 204, 113,0.3)"
-      }]
-    }
+      }],
+    },
   };
-
-  @Input() gatherer: DataGathererService;
-
-  chartType = 'line'
-  data = [{ data: [], label: 'Sunlight' }];
-  timestamps = [];
+  public lineChartColors: Color[] = [
+    { // grey
+      backgroundColor: 'rgba(148,159,177,0.2)',
+      borderColor: 'rgba(148,159,177,1)',
+      pointBackgroundColor: 'rgba(148,159,177,1)',
+      pointBorderColor: '#fff',
+      pointHoverBackgroundColor: '#fff',
+      pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+    }
+  ];
+  public lineChartLegend = true;
+  public lineChartType = 'line';
+  public lineChartPlugins = [pluginAnnotations];
 
   ngOnInit() {
     interval(1000).subscribe(x => {
@@ -47,7 +70,7 @@ export class SunlightChartComponent implements OnInit {
 
   refresh() {
     this.timestamps = this.gatherer.timestamps.map(x => this.format(x));
-    this.data[0].data = this.gatherer.sunlightData;
+    this.lineChartData[0].data = this.gatherer.sunlightData;
   }
 
   format(date: Date) {

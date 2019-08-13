@@ -25,17 +25,19 @@ export class DayChartComponent implements OnInit {
   selectedDay: DayDataChunk;
 
   ngOnInit() {
-    this.selectedDay = this.gatherer.days[this.gatherer.days.length - 1];
-    this.sunData = [this.selectedDay.sunlight, 100 - this.selectedDay.sunlight];
+    if (this.gatherer.days.length < 1) {
+      this.selectedDay = new DayDataChunk(new Date(), 0, 0, 0);
+    } else {
+      this.selectedDay = this.gatherer.days[this.gatherer.days.length - 1];
+    }
   }
 
   changeFocus(day: DayDataChunk) {
     this.selectedDay = day;
-    this.sunData = [this.selectedDay.sunlight, 100 - this.selectedDay.sunlight];
   }
 
   percentToDuration() {
-    let pct = this.sunData[0] / 100;
+    let pct = this.selectedDay.sunlight;
     let x = pct * 24;
     let y = x % 1 * 60;
     return (x | 0) + 'h ' + (y | 0) + 'm';

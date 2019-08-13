@@ -2,7 +2,7 @@
   <div class="header">
   <mat-toolbar color="#000000">
     <mat-toolbar-row>
-      <div fxFlex>{{ selectedDay.date.toDateString() }}</div>
+      <div fxFlex>Averages for {{ selectedDay.date.toDateString() }}</div>
       <div>
         <button mat-button [matMenuTriggerFor]="menu">Change Day</button>
         <mat-menu #menu="matMenu">
@@ -27,16 +27,5 @@
         </mat-card-header>
       </mat-card>
     </div>
-    <!--div class="pie-chart" fxFlex="50%" fxFill>
-      <mat-card>
-        <canvas baseChart
-          [chartType]="'pie'"
-          [data]="sunData"
-          [labels]="labels"
-          [options]="chartOptions"
-          [legend]="true">
-        </canvas>
-      </mat-card>
-    </div-->
   </div>
 </div>
