@@ -1,22 +1,20 @@
 <div class="container" fxFlex="100%">
   <div class="header">
-  <mat-toolbar color="#000000">
-    <mat-toolbar-row>
-      <div fxFlex>Averages for {{ selectedDay.date.toDateString() }}</div>
-      <div>
-        <button mat-menu-item [matMenuTriggerFor]="menu">
-          <span>
+    <mat-toolbar color="#000000">
+      <mat-toolbar-row>
+        <div fxFlex>Averages for {{ selectedDay.date.toDateString() }}</div>
+        <div>
+          <button mat-menu-item [matMenuTriggerFor]="menu">
             <mat-icon>calendar_today</mat-icon>
-          </span>
-        </button>
-        <mat-menu #menu="matMenu">
-          <ng-container *ngFor="let day of gatherer.days">
-            <button mat-menu-item (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
-          </ng-container>
-        </mat-menu>
-      </div>
-    </mat-toolbar-row>
-  </mat-toolbar>
+          </button>
+          <mat-menu #menu="matMenu">
+            <ng-container *ngFor="let day of gatherer.days">
+              <button mat-menu-item (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
+            </ng-container>
+          </mat-menu>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
   </div>
   <div class="body">
     <div class="data" fxFlex="100%">

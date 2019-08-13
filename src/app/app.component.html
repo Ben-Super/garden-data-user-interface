@@ -1,6 +1,22 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Garden Data</span>
+    <div fxFlex>Garden Data</div>
+    <div>
+      <button mat-menu-item [matMenuTriggerFor]="menu">
+        <mat-icon>info</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item disabled>
+          <span>Author: Ben Super</span>
+        </button>
+        <button mat-menu-item disabled>
+          <span>Version: 1.0.0</span>
+        </button>
+        <button mat-menu-item disabled>
+          <span>Release: August 2019</span>
+        </button>
+      </mat-menu>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-tab-group>
