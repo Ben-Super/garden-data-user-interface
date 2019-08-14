@@ -12,7 +12,7 @@
         <mat-card-title>
           <mat-icon>whatshot</mat-icon>
           {{ gatherer.isGoodTemp(getLastVals()[0]) }}
-          ({{ getLastVals()[0] }}&#176;F)
+          ({{ getLastVals()[0] | number: '1.1-1' }}&#176;F)
         </mat-card-title>
         <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
       </mat-card-header>
@@ -20,7 +20,7 @@
         <mat-card-title>
           <mat-icon>format_color_fill</mat-icon>
           {{ gatherer.isGoodMoisture(getLastVals()[1]) }}
-          ({{ getLastVals()[1] }}%)
+          ({{ getLastVals()[1] | number: '1.1-1' }}%)
         </mat-card-title>
         <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
       </mat-card-header>

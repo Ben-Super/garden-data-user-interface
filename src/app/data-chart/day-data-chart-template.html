@@ -23,7 +23,7 @@
         <mat-card-title>
           <mat-icon>whatshot</mat-icon>
           {{ gatherer.isGoodTemp(selectedDay.temperature) }}
-          ({{ selectedDay.temperature }}&#176;F)
+          ({{ selectedDay.temperature | number: '1.1-1' }}&#176;F)
         </mat-card-title>
         <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
       </mat-card-header>
@@ -31,7 +31,7 @@
         <mat-card-title>
           <mat-icon>format_color_fill</mat-icon>
           {{ gatherer.isGoodMoisture(selectedDay.soil_moisture) }}
-          ({{ selectedDay.soil_moisture }}%)
+          ({{ selectedDay.soil_moisture | number: '1.1-1' }}%)
         </mat-card-title>
         <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
       </mat-card-header>

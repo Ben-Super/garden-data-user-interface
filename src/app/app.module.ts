@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -10,6 +9,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ChartsModule } from 'ng2-charts';
 
@@ -36,7 +36,6 @@ import { MonthChartComponent } from './data-chart/month-chart.component';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule, 
-    HttpModule,
     HttpClientModule, 
     ChartsModule, 
     MatTabsModule, 
@@ -44,6 +43,7 @@ import { MonthChartComponent } from './data-chart/month-chart.component';
     MatIconModule,
     MatMenuModule,
     MatCardModule,
+    MatFormFieldModule,
     FlexLayoutModule
   ],
   providers: [],

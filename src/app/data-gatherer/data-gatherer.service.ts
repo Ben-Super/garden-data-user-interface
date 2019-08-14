@@ -11,6 +11,7 @@ export const SOIL_LOWER_THRESHOLD = 20;
 export const TEMP_UPPER_THRESHOLD = 90;
 export const TEMP_LOWER_THRESHOLD = 60;
 const REFRESH_RATE = 1000;
+const NUM_VALS_ON_STARTUP = 100;
 
 /*
  * ~ Data Gatherer ~
@@ -23,64 +24,64 @@ const REFRESH_RATE = 1000;
 })
 export class DataGathererService {
 
-  public days: DayDataChunk[] = [
-    new DayDataChunk(
-      new Date("2019-08-06"),
-      62.0,
-      54.6,
-      29.7
-    ),
-    new DayDataChunk(
-      new Date("2019-08-07"),
-      72.6,
-      19.8,
-      46.3
-    ),
-    new DayDataChunk(
-      new Date("2019-08-08"),
-      53.7,
-      34.6,
-      33.2
-    ),
-  ];
-  public today: Date = new Date();
-  public timestamps: Date[] = [];
-  public temperatureData: number[] = [];
-  public soilMoistureData: number[] = [];
-  public sunlightData: number[] = [];
+  public days: DayDataChunk[] = []; // Data storage for past days
+  public today: Date = new Date(); // Current day
+  public timestamps: Date[] = []; // Timestamps for the readings
+  public temperatureData: number[] = []; // Temperature readings
+  public soilMoistureData: number[] = []; // Soil moisture readings
+  public sunlightData: number[] = []; // Sunlight readings
 
   constructor(private rest: RestService) {}
 
+  // Begins refreshing the data every second
   startGathering() {
-    this.getData();
+    this.init();
     interval(REFRESH_RATE).subscribe(x => {
       this.getData();
     });
   }
 
+  // Retrieves the last reading and sends it to the handler
   getData() {
     this.rest.get()
       .subscribe(
         result => {
-          if (this.isNewDay(result.feeds[result.feeds.length - 1])) this.storeDay();
-          if (this.isNewData(result.feeds[result.feeds.length - 1])) {
-            for (let i = 0; i < result.feeds.length; ++i) {
-              this.today = new Date(result.feeds[i].created_at);
-              this.timestamps.push(this.today);
-              this.temperatureData.push(parseFloat(result.feeds[i].field1));
-              this.soilMoistureData.push(parseFloat(result.feeds[i].field3));
-              this.sunlightData.push(parseFloat(result.feeds[i].field6));
-            }
-          }
+          this.handleResult(result);
         },
         error => console.log("Error >>> " + error)
       )
   }
 
+  // Populates the data storage with old data on initialization
   init() {
-
+    this.rest.getMany(NUM_VALS_ON_STARTUP)
+      .subscribe(
+        result => {
+          this.handleResult(result);
+        },
+        error => console.log("Error >>> " + error)
+      )
   }
 
+  // Handles new readings and updates the data accordingly
+  handleResult(result) {
+    if (this.isNewData(result.feeds[result.feeds.length - 1])) {
+      for (let i = 0; i < result.feeds.length; ++i) {
+        if (this.isNewDay(result.feeds[i])) this.storeDay();
+        this.today = new Date(result.feeds[i].created_at);
+        this.timestamps.push(this.today);
+        let temp = parseFloat(result.feeds[i].field1);
+        this.temperatureData.push(!isNaN(temp) ? 
+          temp : this.temperatureData[this.temperatureData.length - 1]);
+        let soil = parseFloat(result.feeds[i].field3);
+        this.soilMoistureData.push(!isNaN(soil) ? 
+          soil : this.soilMoistureData[this.soilMoistureData.length - 1]);
+        this.sunlightData.push(parseFloat(result.feeds[i].field6));
+      }
+    }
+  }
+
+  // Data reset for when a new day has been reached
   clearData() {
     this.today = new Date();
     this.timestamps = [];
@@ -89,6 +90,7 @@ export class DataGathererService {
     this.sunlightData = [];
   }
 
+  // Checks to see if a reading is new
   isNewData(result) {
     let date1 = new Date(result.created_at);
     if (this.timestamps.length - 1 < 0) return true;
@@ -96,6 +98,7 @@ export class DataGathererService {
     return date1.getTime() != date2.getTime();
   }
 
+  // Chaecks to see if a new day has been reached
   isNewDay(result) {
     if (this.timestamps.length < 1) return false;
     let date = new Date(result.created_at);
@@ -104,6 +107,7 @@ export class DataGathererService {
             this.today.getFullYear() != date.getFullYear();
   }
 
+  // Stores the data from the current day and resets the day to the new one
   storeDay() {
     this.days.push(new DayDataChunk(
       this.today, 
@@ -118,16 +122,18 @@ export class DataGathererService {
     this.clearData();
   }
 
+  // Calculates the percent of the day the device was in the sun
   calculateSunlight() {
     let count = 0;
     for (let n of this.sunlightData) {
       if (n >= IN_SUN_THRESHOLD) ++count;
     }
-    return count / 96;
+    return count * 100 / 96.0;
   }
 
+  // Returns statuses based on the temperature
   isGoodTemp(temp: number) {
-    if (this.timestamps.length < 1) {
+    if (this.timestamps.length < 1 || temp < 1) {
       return 'No Data';
     } else if (temp < TEMP_LOWER_THRESHOLD) {
       return 'Too Cold';
@@ -138,8 +144,9 @@ export class DataGathererService {
     }
   }
 
+  // Returns statuses based on the soil moisture
   isGoodMoisture(soil: number) {
-    if (this.timestamps.length < 1) {
+    if (this.timestamps.length < 1 || soil < 1) {
       return 'No Data';
     } else if (soil < SOIL_LOWER_THRESHOLD) {
       return 'Too Dry';
@@ -150,8 +157,9 @@ export class DataGathererService {
     }
   }
 
+  // Returns statuses based on the sunlight
   isInSun(sun: number) {
-    if (this.timestamps.length < 1) {
+    if (this.timestamps.length < 1 || sun < 1) {
       return 'No Data';
     } else if (sun >= IN_SUN_THRESHOLD) {
       return 'Sunny';
@@ -160,9 +168,5 @@ export class DataGathererService {
     } else {
       return 'Night';
     }
-  }
-
-  check() {
-    console.log("Gatherer service initialized.");
   }
 }

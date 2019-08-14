@@ -18,7 +18,7 @@ export class MonthChartComponent implements OnInit {
   @Input() gatherer: DataGathererService;
 
   daysRecorded: number = 0;
-  averages: number[] = [0, 0, 0];
+  averages: number[] = [-1, -1, -1];
 
   ngOnInit() {
     interval(1000).subscribe(x => {
@@ -28,6 +28,7 @@ export class MonthChartComponent implements OnInit {
   }
 
   getAverages() {
+    if (this.gatherer.days.length < 1) return [-1, -1, -1];
     let sum1 = 0, sum2 = 0, sum3 = 0;
     for(let d of this.gatherer.days) {
       sum1 += d.temperature;

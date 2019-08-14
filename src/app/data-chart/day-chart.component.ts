@@ -26,7 +26,7 @@ export class DayChartComponent implements OnInit {
 
   ngOnInit() {
     if (this.gatherer.days.length < 1) {
-      this.selectedDay = new DayDataChunk(new Date(), 0, 0, 0);
+      this.selectedDay = new DayDataChunk(new Date(), -1, -1, -1);
     } else {
       this.selectedDay = this.gatherer.days[this.gatherer.days.length - 1];
     }
