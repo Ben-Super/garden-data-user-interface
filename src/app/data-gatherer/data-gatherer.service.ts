@@ -10,6 +10,7 @@ export const SOIL_UPPER_THRESHOLD = 60;
 export const SOIL_LOWER_THRESHOLD = 20;
 export const TEMP_UPPER_THRESHOLD = 90;
 export const TEMP_LOWER_THRESHOLD = 60;
+const REFRESH_RATE = 1000;
 
 /*
  * ~ Data Gatherer ~
@@ -52,26 +53,32 @@ export class DataGathererService {
 
   startGathering() {
     this.getData();
-    // interval(10000).subscribe(x => {
-    //   this.getData();
-    // });
+    interval(REFRESH_RATE).subscribe(x => {
+      this.getData();
+    });
   }
 
   getData() {
     this.rest.get()
       .subscribe(
         result => {
-          if (this.isNewDay(result.feeds[0])) this.storeDay();
-          if (this.isNewData(result.feeds[0])) {
-            this.today = new Date(result.feeds[0].created_at);
-            this.timestamps.push(this.today);
-            this.temperatureData.push(parseFloat(result.feeds[0].field1));
-            this.soilMoistureData.push(parseFloat(result.feeds[0].field3));
-            this.sunlightData.push(parseFloat(result.feeds[0].field6));
+          if (this.isNewDay(result.feeds[result.feeds.length - 1])) this.storeDay();
+          if (this.isNewData(result.feeds[result.feeds.length - 1])) {
+            for (let i = 0; i < result.feeds.length; ++i) {
+              this.today = new Date(result.feeds[i].created_at);
+              this.timestamps.push(this.today);
+              this.temperatureData.push(parseFloat(result.feeds[i].field1));
+              this.soilMoistureData.push(parseFloat(result.feeds[i].field3));
+              this.sunlightData.push(parseFloat(result.feeds[i].field6));
+            }
           }
         },
         error => console.log("Error >>> " + error)
       )
+  }
+
+  init() {
+
   }
 
   clearData() {
