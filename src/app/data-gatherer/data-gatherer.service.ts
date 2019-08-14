@@ -51,22 +51,23 @@ export class DataGathererService {
   constructor(private rest: RestService) {}
 
   startGathering() {
-    interval(1000).subscribe(x => {
-      this.getData();
-    });
+    this.getData();
+    // interval(10000).subscribe(x => {
+    //   this.getData();
+    // });
   }
 
   getData() {
     this.rest.get()
       .subscribe(
         result => {
-          if (this.isNewDay(result[0])) this.storeDay();
-          if (this.isNewData(result[0])) {
-            this.today = new Date(result[0].created_at);
+          if (this.isNewDay(result.feeds[0])) this.storeDay();
+          if (this.isNewData(result.feeds[0])) {
+            this.today = new Date(result.feeds[0].created_at);
             this.timestamps.push(this.today);
-            this.temperatureData.push(parseFloat(result[0].field1));
-            this.soilMoistureData.push(parseFloat(result[0].field3));
-            this.sunlightData.push(parseFloat(result[0].field6));
+            this.temperatureData.push(parseFloat(result.feeds[0].field1));
+            this.soilMoistureData.push(parseFloat(result.feeds[0].field3));
+            this.sunlightData.push(parseFloat(result.feeds[0].field6));
           }
         },
         error => console.log("Error >>> " + error)
@@ -89,6 +90,7 @@ export class DataGathererService {
   }
 
   isNewDay(result) {
+    if (this.timestamps.length < 1) return false;
     let date = new Date(result.created_at);
     return this.today.getMonth() != date.getMonth() ||
             this.today.getDate() != date.getDate() ||

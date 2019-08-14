@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { Color, BaseChartDirective } from 'ng2-charts';
-import { DataGathererService } from '../data-gatherer/data-gatherer.service';
+import { DataGathererService, TEMP_UPPER_THRESHOLD, TEMP_LOWER_THRESHOLD } from '../data-gatherer/data-gatherer.service';
 
 /*
  * ~ Sunlight Chart Component ~
@@ -42,8 +42,8 @@ export class TemperatureChartComponent implements OnInit {
         xScaleID: "x-axis-0",
         yScaleID: "y-axis-0",
         borderWidth: 0,
-        yMin: 60,
-        yMax: 90,
+        yMin: TEMP_LOWER_THRESHOLD,
+        yMax: TEMP_UPPER_THRESHOLD,
         backgroundColor: "rgba(46, 204, 113,0.3)"
       }],
     },

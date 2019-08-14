@@ -3,7 +3,7 @@ import { interval } from 'rxjs';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { Color, BaseChartDirective } from 'ng2-charts';
-import { DataGathererService } from '../data-gatherer/data-gatherer.service';
+import { DataGathererService, SOIL_UPPER_THRESHOLD, SOIL_LOWER_THRESHOLD } from '../data-gatherer/data-gatherer.service';
 
 /*
  * ~ Soil Moisture Chart Component ~
@@ -42,8 +42,8 @@ export class SoilMoistureChartComponent implements OnInit {
         xScaleID: "x-axis-0",
         yScaleID: "y-axis-0",
         borderWidth: 0,
-        yMin: 20,
-        yMax: 60,
+        yMin: SOIL_LOWER_THRESHOLD,
+        yMax: SOIL_UPPER_THRESHOLD,
         backgroundColor: "rgba(46, 204, 113,0.3)"
       }],
     },

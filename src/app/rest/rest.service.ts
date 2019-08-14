@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { Http, Response } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -11,20 +11,13 @@ const endpoint = 'https://api.thingspeak.com/channels/500326/';
   providedIn: 'root'
 })
 export class RestService {
-  response: any;
 
-  constructor(private http: Http) {}
+  constructor(protected http: HttpClient) {}
 
-  get(): Observable<ThingSpeakData[]> {
-      return this.http
-          .get(endpoint + 'feeds.json?results=1')
-          .map((response: Response) => {
-            return <ThingSpeakData[]>response.json().feeds;
-          })
-          .catch(this.handleError);
-  }
-
-  private handleError(error: Response) {
-    return Observable.throw(error.statusText);
+  get(): Observable<ThingSpeakData> {
+      let temp = this.http
+          .get<ThingSpeakData>(endpoint + 'feeds.json?results=1');
+      console.log(temp);
+      return temp;
   }
 }
