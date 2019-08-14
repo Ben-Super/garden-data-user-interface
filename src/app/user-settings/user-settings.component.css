@@ -1,0 +1,15 @@
+.settings-container {
+  display: flex;
+  flex-direction: column;
+  width: 96%;
+  margin: 2%;
+  border-radius: 2%;
+}
+
+.settings-container-row {
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  
+}

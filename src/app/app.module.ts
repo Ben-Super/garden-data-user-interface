@@ -3,13 +3,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule } from '@angular/forms';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatCardModule } from '@angular/material/card';
-import { MatIconModule } from '@angular/material/icon';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { 
+  MatTabsModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatMenuModule,
+  MatCardModule,
+  MatInputModule,
+  MatFormFieldModule
+} from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ChartsModule } from 'ng2-charts';
 
@@ -21,6 +24,7 @@ import { SunlightChartComponent } from './data-chart/sunlight-chart.component';
 import { LatestComponent } from './data-chart/latest.component';
 import { DayChartComponent } from './data-chart/day-chart.component';
 import { MonthChartComponent } from './data-chart/month-chart.component';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
 
 @NgModule({
   declarations: [
@@ -30,10 +34,13 @@ import { MonthChartComponent } from './data-chart/month-chart.component';
     SunlightChartComponent,
     LatestComponent,
     DayChartComponent,
-    MonthChartComponent
+    MonthChartComponent,
+    UserSettingsComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     AppRoutingModule, 
     HttpClientModule, 
@@ -43,6 +50,7 @@ import { MonthChartComponent } from './data-chart/month-chart.component';
     MatIconModule,
     MatMenuModule,
     MatCardModule,
+    MatInputModule,
     MatFormFieldModule,
     FlexLayoutModule
   ],

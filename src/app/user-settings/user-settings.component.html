@@ -1,0 +1,38 @@
+<div class="settings-container">
+  <div class="settings-container-row">
+    <mat-form-field fxFlex="49%">
+      <input matInput placeholder="Lower temperature threshold" [formControl]="tempLower" required>
+      <mat-error *ngIf="tempLower.invalid">{{getErrorMessage(this.tempLower)}}</mat-error>
+      <span matSuffix>&#176;F</span>
+    </mat-form-field>
+    <mat-form-field fxFlex="49%">
+      <input matInput placeholder="Upper temperature threshold" [formControl]="tempUpper" required>
+      <mat-error *ngIf="tempUpper.invalid">{{getErrorMessage(this.tempUpper)}}</mat-error>
+      <span matSuffix>&#176;F</span>
+    </mat-form-field>
+  </div>
+  <div class="settings-container-row">
+    <mat-form-field fxFlex="49%">
+      <input matInput placeholder="Lower soil moisture threshold" [formControl]="soilLower" required>
+      <mat-error *ngIf="soilLower.invalid">{{getErrorMessage(this.soilLower)}}</mat-error>
+      <span matSuffix>%</span>
+    </mat-form-field>
+    <mat-form-field fxFlex="49%">
+      <input matInput placeholder="Upper soil moisture threshold" [formControl]="soilUpper" required>
+      <mat-error *ngIf="soilUpper.invalid">{{getErrorMessage(this.soilUpper)}}</mat-error>
+      <span matSuffix>%</span>
+    </mat-form-field>
+  </div>
+  <div class="settings-container-row">
+    <mat-form-field fxFlex="49%">
+      <input matInput placeholder="In shade threshold" [formControl]="shadeThresh" required>
+      <mat-error *ngIf="shadeThresh.invalid">{{getErrorMessage(this.shadeThresh)}}</mat-error>
+      <span matSuffix>lx</span>
+    </mat-form-field>
+    <mat-form-field fxFlex="49%">
+      <input matInput placeholder="In sunlight threshold" [formControl]="sunThresh" required>
+      <mat-error *ngIf="sunThresh.invalid">{{getErrorMessage(this.sunThresh)}}</mat-error>
+      <span matSuffix>lx</span>
+    </mat-form-field>
+  </div>
+</div>
