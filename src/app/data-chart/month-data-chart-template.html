@@ -1,8 +1,56 @@
-<div class="container" fxFlex="100%">
+<div class="container" fxFlex="50%">
+  <div class="header">
+    <mat-toolbar color="#000000">
+      <mat-toolbar-row>
+        <div fxFlex>{{ selectedDay.date.toDateString() }}</div>
+        <div>
+          <button mat-menu-item [matMenuTriggerFor]="menu">
+            <mat-icon>calendar_today</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <ng-container *ngFor="let day of gatherer.days">
+              <button mat-menu-item (click)="changeFocus(day)">{{ day.date.toDateString() }}</button>
+            </ng-container>
+          </mat-menu>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+  <div class="body">
+    <div class="data" fxFlex="100%">
+      <mat-card fxFlex="100%">
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>whatshot</mat-icon>
+          {{ gatherer.isGoodTemp(selectedDay.temperature) }}
+          ({{ selectedDay.temperature | number: '1.1-1' }}&#176;F)
+        </mat-card-title>
+        <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          <mat-icon>format_color_fill</mat-icon>
+          {{ gatherer.isGoodMoisture(selectedDay.soil_moisture) }}
+          ({{ selectedDay.soil_moisture | number: '1.1-1' }}%)
+        </mat-card-title>
+        <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
+      </mat-card-header>
+        <mat-card-header>
+          <mat-card-title>
+            <mat-icon>wb_sunny</mat-icon>
+            {{ avgSunlightDuration(selectedDay.sunlight) }}
+          </mat-card-title>
+          <mat-card-subtitle>Time in Sun</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+    </div>
+  </div>
+</div>
+<div class="container" fxFlex="49%">
   <div class="header">
   <mat-toolbar color="#000000">
     <mat-toolbar-row>
-      <div fxFlex>Averages for the Last {{ daysRecorded }} Days</div>
+      <div fxFlex>Last {{ daysRecorded }} Recorded Days</div>
     </mat-toolbar-row>
   </mat-toolbar>
   </div>
@@ -28,7 +76,7 @@
         <mat-card-header>
           <mat-card-title>
             <mat-icon>wb_sunny</mat-icon>
-            {{ avgSunlightDuration() }}
+            {{ avgSunlightDuration(averages[2]) }}
           </mat-card-title>
           <mat-card-subtitle>Time in Sun</mat-card-subtitle>
         </mat-card-header>

@@ -22,7 +22,6 @@ import { TemperatureChartComponent } from './data-chart/temperature-chart.compon
 import { SoilMoistureChartComponent } from './data-chart/soil-moisture-chart.component';
 import { SunlightChartComponent } from './data-chart/sunlight-chart.component';
 import { LatestComponent } from './data-chart/latest.component';
-import { DayChartComponent } from './data-chart/day-chart.component';
 import { MonthChartComponent } from './data-chart/month-chart.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 
@@ -33,7 +32,6 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
     SoilMoistureChartComponent, 
     SunlightChartComponent,
     LatestComponent,
-    DayChartComponent,
     MonthChartComponent,
     UserSettingsComponent
   ],

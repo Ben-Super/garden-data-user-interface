@@ -19,8 +19,14 @@ export class MonthChartComponent implements OnInit {
 
   daysRecorded: number = 0;
   averages: number[] = [-1, -1, -1];
+  selectedDay: DayDataChunk;
 
   ngOnInit() {
+    if (this.gatherer.days.length < 1) {
+      this.selectedDay = new DayDataChunk(new Date(), -1, -1, -1);
+    } else {
+      this.selectedDay = this.gatherer.days[this.gatherer.days.length - 1];
+    }
     interval(1000).subscribe(x => {
       this.daysRecorded = this.gatherer.days.length;
       this.averages = this.getAverages();
@@ -38,11 +44,15 @@ export class MonthChartComponent implements OnInit {
     return [sum1 / this.daysRecorded, sum2 / this.daysRecorded, sum3 / this.daysRecorded];
   }
   
-  avgSunlightDuration() {
-    let pct = this.averages[2] / 100;
+  avgSunlightDuration(sun: number) {
+    let pct = sun / 100;
     let x = pct * 24;
     let y = x % 1 * 60;
     return (x | 0) + 'h ' + (y | 0) + 'm';
+  }
+
+  changeFocus(day: DayDataChunk) {
+    this.selectedDay = day;
   }
 
   constructor() {}
