@@ -21,26 +21,23 @@
 </mat-toolbar>
 <mat-tab-group>
   <mat-tab label="Latest">
-    <latest-section [gatherer]="gatherer" [settings]="settings"></latest-section>
+    <latest-section [gatherer]="gatherer"></latest-section>
   </mat-tab>
   <mat-tab label="Today">
     <mat-tab-group>
       <mat-tab label="Temperature">
-        <temp-data-chart [gatherer]="gatherer" [settings]="settings"></temp-data-chart>
+        <temp-data-chart [gatherer]="gatherer"></temp-data-chart>
       </mat-tab>
       <mat-tab label="Soil Moisture">
-        <sm-data-chart [gatherer]="gatherer" [settings]="settings"></sm-data-chart>
+        <sm-data-chart [gatherer]="gatherer"></sm-data-chart>
       </mat-tab>
       <mat-tab label="Sunlight">
-        <sun-data-chart [gatherer]="gatherer" [settings]="settings"></sun-data-chart>
+        <sun-data-chart [gatherer]="gatherer"></sun-data-chart>
       </mat-tab>
     </mat-tab-group>
   </mat-tab>
   <mat-tab label="Past Data">
     <month-data-chart [gatherer]="gatherer"></month-data-chart>
-  </mat-tab>
-  <mat-tab label="Settings">
-    <user-settings [settings]="settings"></user-settings>
   </mat-tab>
 </mat-tab-group>
 

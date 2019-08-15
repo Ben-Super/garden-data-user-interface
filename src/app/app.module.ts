@@ -15,7 +15,6 @@ import {
 } from '@angular/material';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ChartsModule } from 'ng2-charts';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TemperatureChartComponent } from './data-chart/temperature-chart.component';
@@ -23,8 +22,6 @@ import { SoilMoistureChartComponent } from './data-chart/soil-moisture-chart.com
 import { SunlightChartComponent } from './data-chart/sunlight-chart.component';
 import { LatestComponent } from './data-chart/latest.component';
 import { MonthChartComponent } from './data-chart/month-chart.component';
-import { UserSettingsComponent } from './user-settings/user-settings.component';
-import { UserSettingsService } from './user-settings/user-settings.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +31,6 @@ import { UserSettingsService } from './user-settings/user-settings.service';
     SunlightChartComponent,
     LatestComponent,
     MonthChartComponent,
-    UserSettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +49,7 @@ import { UserSettingsService } from './user-settings/user-settings.service';
     MatFormFieldModule,
     FlexLayoutModule
   ],
-  providers: [UserSettingsService],
+  providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
