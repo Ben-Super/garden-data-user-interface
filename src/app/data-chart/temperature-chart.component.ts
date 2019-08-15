@@ -4,6 +4,7 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { Color, BaseChartDirective } from 'ng2-charts';
 import { DataGathererService, TEMP_UPPER_THRESHOLD, TEMP_LOWER_THRESHOLD } from '../data-gatherer/data-gatherer.service';
+import { UserSettingsService } from '../user-settings/user-settings.service';
 
 /*
  * ~ Sunlight Chart Component ~
@@ -18,6 +19,7 @@ import { DataGathererService, TEMP_UPPER_THRESHOLD, TEMP_LOWER_THRESHOLD } from 
 export class TemperatureChartComponent implements OnInit {
 
   @Input() gatherer: DataGathererService;
+  @Input() settings: UserSettingsService;
 
   public lineChartData: ChartDataSets[] = [
     { data: [], fill: false, label: 'Temperature' }
@@ -42,8 +44,8 @@ export class TemperatureChartComponent implements OnInit {
         xScaleID: "x-axis-0",
         yScaleID: "y-axis-0",
         borderWidth: 0,
-        yMin: TEMP_LOWER_THRESHOLD,
-        yMax: TEMP_UPPER_THRESHOLD,
+        yMin: this.settings.tempLower.value,
+        yMax: this.settings.tempUpper.value,
         backgroundColor: "rgba(46, 204, 113,0.3)"
       }],
     },

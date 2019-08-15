@@ -8,6 +8,7 @@ import {
   SOIL_UPPER_THRESHOLD,
   SOIL_LOWER_THRESHOLD
  } from './data-gatherer/data-gatherer.service';
+ import { UserSettingsService } from './user-settings/user-settings.service';
 
 @Component({
   selector: 'app-root',
@@ -23,9 +24,10 @@ export class AppComponent implements OnInit {
   upperSoil: number = SOIL_UPPER_THRESHOLD;
   lowerSoil: number = SOIL_LOWER_THRESHOLD;
   
-  constructor(private gatherer: DataGathererService) {}
+  constructor(private gatherer: DataGathererService, private settings: UserSettingsService) {}
 
   ngOnInit() {
+    this.settings.init();
     this.gatherer.startGathering();
   }
 }

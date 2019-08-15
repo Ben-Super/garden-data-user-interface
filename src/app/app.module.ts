@@ -24,6 +24,7 @@ import { SunlightChartComponent } from './data-chart/sunlight-chart.component';
 import { LatestComponent } from './data-chart/latest.component';
 import { MonthChartComponent } from './data-chart/month-chart.component';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { UserSettingsService } from './user-settings/user-settings.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
     MatFormFieldModule,
     FlexLayoutModule
   ],
-  providers: [],
+  providers: [UserSettingsService],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
