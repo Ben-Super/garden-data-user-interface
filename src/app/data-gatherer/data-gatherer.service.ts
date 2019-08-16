@@ -16,14 +16,14 @@ import {
   faTimesCircle
 } from '@fortawesome/free-solid-svg-icons';
 
-export const IN_SUN_THRESHOLD = 500;
+export const IN_SUN_THRESHOLD = 250;
 export const IN_SHADE_THRESHOLD = 50;
-export const SOIL_UPPER_THRESHOLD = 60;
-export const SOIL_LOWER_THRESHOLD = 20;
+export const SOIL_UPPER_THRESHOLD = 95;
+export const SOIL_LOWER_THRESHOLD = 65;
 export const TEMP_UPPER_THRESHOLD = 90;
 export const TEMP_LOWER_THRESHOLD = 60;
 const REFRESH_RATE = 1000;
-const NUM_VALS_ON_STARTUP = 100;
+const NUM_VALS_ON_STARTUP = 200;
 
 /*
  * ~ Data Gatherer ~
