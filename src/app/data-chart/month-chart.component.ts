@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { interval } from 'rxjs';
 import { DataGathererService } from '../data-gatherer/data-gatherer.service';
 import { DayDataChunk } from '../data-gatherer/data-objects';
+import { faCalendarDay, faSun, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 /*
  * ~ Month Chart Component ~
@@ -15,6 +16,11 @@ import { DayDataChunk } from '../data-gatherer/data-objects';
 })
 export class MonthChartComponent implements OnInit {
 
+  // Icons
+  faCalendarDay = faCalendarDay;
+  faSun = faSun;
+  faTimesCircle = faTimesCircle;
+
   @Input() gatherer: DataGathererService;
 
   daysRecorded: number = 0;
@@ -23,7 +29,7 @@ export class MonthChartComponent implements OnInit {
 
   ngOnInit() {
     if (this.gatherer.days.length < 1) {
-      this.selectedDay = new DayDataChunk(new Date(), -1, -1, -1);
+      this.selectedDay = new DayDataChunk(undefined, -1, -1, -1);
     } else {
       this.selectedDay = this.gatherer.days[this.gatherer.days.length - 1];
     }

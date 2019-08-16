@@ -1,3 +1,7 @@
+/*
+ * Interface for casting the returned json data to
+ * 
+ */
 export interface ThingSpeakData {
   channel: {
     id: 500326,

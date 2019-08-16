@@ -1,11 +1,15 @@
-<div class="container" fxFlex="50%">
+<div class="container" fxFlex="55%">
   <div class="header">
     <mat-toolbar color="#000000">
       <mat-toolbar-row>
-        <div fxFlex>{{ selectedDay.date.toDateString() }}</div>
+        <div fxFlex>
+          {{ selectedDay.date != undefined ? 
+            selectedDay.date.toDateString() : 'Select a Day &#8594;' }}
+        </div>
         <div>
           <button mat-menu-item [matMenuTriggerFor]="menu">
-            <mat-icon>calendar_today</mat-icon>
+            Change Day
+            <fa-icon [icon]="faCalendarDay"></fa-icon>
           </button>
           <mat-menu #menu="matMenu">
             <ng-container *ngFor="let day of gatherer.days">
@@ -21,24 +25,24 @@
       <mat-card fxFlex="100%">
       <mat-card-header>
         <mat-card-title>
-          <mat-icon>whatshot</mat-icon>
-          {{ gatherer.isGoodTemp(selectedDay.temperature) }}
-          ({{ selectedDay.temperature | number: '1.1-1' }}&#176;F)
+          <fa-icon [icon]="gatherer.isGoodTemp(selectedDay.temperature).icon"></fa-icon>
+          {{ gatherer.isGoodTemp(selectedDay.temperature).status }}
+          ({{ selectedDay.temperature >= 0 ? (selectedDay.temperature | number: '1.1-1') : 0 }}&#176;F)
         </mat-card-title>
         <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
       </mat-card-header>
       <mat-card-header>
         <mat-card-title>
-          <mat-icon>format_color_fill</mat-icon>
-          {{ gatherer.isGoodMoisture(selectedDay.soil_moisture) }}
-          ({{ selectedDay.soil_moisture | number: '1.1-1' }}%)
+          <fa-icon [icon]="gatherer.isGoodMoisture(selectedDay.soil_moisture).icon"></fa-icon>
+          {{ gatherer.isGoodMoisture(selectedDay.soil_moisture).status }}
+          ({{ selectedDay.soil_moisture >= 0 ? (selectedDay.soil_moisture | number: '1.1-1') : 0 }}%)
         </mat-card-title>
         <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
       </mat-card-header>
         <mat-card-header>
           <mat-card-title>
-            <mat-icon>wb_sunny</mat-icon>
-            {{ avgSunlightDuration(selectedDay.sunlight) }}
+            <fa-icon [icon]="selectedDay.sunlight >= 0 ? faSun : faTimesCircle"></fa-icon>
+            {{ selectedDay.sunlight >= 0 ? avgSunlightDuration(selectedDay.sunlight) : 'No Data' }}
           </mat-card-title>
           <mat-card-subtitle>Time in Sun</mat-card-subtitle>
         </mat-card-header>
@@ -46,7 +50,7 @@
     </div>
   </div>
 </div>
-<div class="container" fxFlex="49%">
+<div class="container" fxFlex="45%">
   <div class="header">
   <mat-toolbar color="#000000">
     <mat-toolbar-row>
@@ -59,23 +63,23 @@
       <mat-card fxFlex="100%">
         <mat-card-header>
           <mat-card-title>
-            <mat-icon>whatshot</mat-icon>
-            {{ gatherer.isGoodTemp(averages[0]) }}
+            <fa-icon [icon]="gatherer.isGoodTemp(averages[0]).icon"></fa-icon>
+            {{ gatherer.isGoodTemp(averages[0]).status }}
             ({{ averages[0] | number: '1.1-1' }}&#176;F)
           </mat-card-title>
           <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
         </mat-card-header>
         <mat-card-header>
           <mat-card-title>
-            <mat-icon>format_color_fill</mat-icon>
-            {{ gatherer.isGoodMoisture(averages[1]) }}
+            <fa-icon [icon]="gatherer.isGoodMoisture(averages[1]).icon"></fa-icon>
+            {{ gatherer.isGoodMoisture(averages[1]).status }}
             ({{ averages[1] | number: '1.1-1' }}%)
           </mat-card-title>
           <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
         </mat-card-header>
         <mat-card-header>
           <mat-card-title>
-            <mat-icon>wb_sunny</mat-icon>
+            <fa-icon [icon]="faSun"></fa-icon>
             {{ avgSunlightDuration(averages[2]) }}
           </mat-card-title>
           <mat-card-subtitle>Time in Sun</mat-card-subtitle>

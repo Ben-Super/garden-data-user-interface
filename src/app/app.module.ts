@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { 
   MatTabsModule,
   MatToolbarModule,
-  MatIconModule,
   MatMenuModule,
   MatCardModule,
   MatInputModule,
@@ -43,7 +42,6 @@ import { MonthChartComponent } from './data-chart/month-chart.component';
     ChartsModule, 
     MatTabsModule, 
     MatToolbarModule,
-    MatIconModule,
     MatMenuModule,
     MatCardModule,
     MatInputModule,

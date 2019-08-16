@@ -1,20 +1,10 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { DataGathererService } from '../data-gatherer/data-gatherer.service';
-import {
-  faTint,
-  faTintSlash,
-  faSun,
-  faCloud,
-  faSnowflake,
-  faCheckCircle,
-  faMoon,
-  faFireAlt
-} from '@fortawesome/free-solid-svg-icons';
 
 /*
  * ~ Latest Component ~
  * 
- * 
+ * Component for the real time data
  * 
  */
 @Component({
@@ -23,23 +13,17 @@ import {
 })
 export class LatestComponent implements OnInit {
 
-  @Input() gatherer: DataGathererService;
-
-  faTint = faTint;
-  faTintSlash = faTintSlash;
-  faSun = faSun;
-  faCloud = faCloud;
-  faSnowflake = faSnowflake;
-  faCheckCircle = faCheckCircle;
-  faMoon = faMoon;
-  faFireAlt = faFireAlt;
+  // Inputs
+  @Input() gatherer: DataGathererService; // The gatherer service
 
   constructor() {}
-
+  
+  // Grabs data on init so it's there right away on page load
   ngOnInit() {
     this.getLastVals();
   }
 
+  // Returns an object with all three most recent values in it
   getLastVals() {
     if (this.gatherer.timestamps.length < 1) return [0, 0, 0];
     return {
@@ -49,6 +33,7 @@ export class LatestComponent implements OnInit {
     };
   }
 
+  // Returns the last timestamp in string form
   getLastTimestamp() {
     if (this.gatherer.today != undefined) {
       return this.gatherer.today.toDateString() + ' at ' + this.format(this.gatherer.today);
@@ -57,6 +42,7 @@ export class LatestComponent implements OnInit {
     }
   }
 
+  // Formats the date strings properly
   format(date: Date) {
     return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
   }
