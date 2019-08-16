@@ -8,6 +8,7 @@ import { faCalendarDay, faSun, faTimesCircle } from '@fortawesome/free-solid-svg
  * ~ Month Chart Component ~
  * 
  * Turns the data from the past 30 days pulled off of thingspeak into interactive charts
+ * Also provides a view for each individual day
  * 
  */
 @Component({
@@ -21,12 +22,15 @@ export class MonthChartComponent implements OnInit {
   faSun = faSun;
   faTimesCircle = faTimesCircle;
 
-  @Input() gatherer: DataGathererService;
+  // Inputs
+  @Input() gatherer: DataGathererService; // The gatherer service
 
-  daysRecorded: number = 0;
-  averages: number[] = [-1, -1, -1];
-  selectedDay: DayDataChunk;
+  // Member variables
+  daysRecorded: number = 0; // Total number of days recorded
+  averages: number[] = [-1, -1, -1]; // Array of the averages for the month
+  selectedDay: DayDataChunk; // The current day selected for view
 
+  // Refreshes data every second + inits a value
   ngOnInit() {
     if (this.gatherer.days.length < 1) {
       this.selectedDay = new DayDataChunk(undefined, -1, -1, -1);
@@ -39,6 +43,7 @@ export class MonthChartComponent implements OnInit {
     });
   }
 
+  // Getsthe averages for all 3 values
   getAverages() {
     if (this.gatherer.days.length < 1) return [-1, -1, -1];
     let sum1 = 0, sum2 = 0, sum3 = 0;
@@ -50,6 +55,7 @@ export class MonthChartComponent implements OnInit {
     return [sum1 / this.daysRecorded, sum2 / this.daysRecorded, sum3 / this.daysRecorded];
   }
   
+  // Turns a percentage into how much of the day it is in hrs/mins
   avgSunlightDuration(sun: number) {
     let pct = sun / 100;
     let x = pct * 24;
@@ -57,6 +63,7 @@ export class MonthChartComponent implements OnInit {
     return (x | 0) + 'h ' + (y | 0) + 'm';
   }
 
+  // Changes the selected day (used on menu select)
   changeFocus(day: DayDataChunk) {
     this.selectedDay = day;
   }

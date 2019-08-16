@@ -17,12 +17,16 @@ import { DataGathererService, SOIL_UPPER_THRESHOLD, SOIL_LOWER_THRESHOLD } from 
 })
 export class SoilMoistureChartComponent implements OnInit {
 
-  @Input() gatherer: DataGathererService;
+  // Inputs
+  @Input() gatherer: DataGathererService; // The gatherer service
 
+  // Inits an empty data set for the chart
   public lineChartData: ChartDataSets[] = [
     { data: [], fill: false, label: 'Soil Moisture' }
   ];
+  // Array for the timestamps (x-axis)
   public timestamps: string[] = [];
+  // The chart options object
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
@@ -42,12 +46,13 @@ export class SoilMoistureChartComponent implements OnInit {
         xScaleID: "x-axis-0",
         yScaleID: "y-axis-0",
         borderWidth: 0,
-        yMin: SOIL_LOWER_THRESHOLD,
-        yMax: SOIL_UPPER_THRESHOLD,
+        yMin: SOIL_LOWER_THRESHOLD, // green zone lower bound
+        yMax: SOIL_UPPER_THRESHOLD, // green zone upper bound
         backgroundColor: "rgba(46, 204, 113,0.3)"
       }],
     },
   };
+  // The colors for the chart
   public lineChartColors: Color[] = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -58,6 +63,7 @@ export class SoilMoistureChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
+  // Other chart settings
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
@@ -67,11 +73,13 @@ export class SoilMoistureChartComponent implements OnInit {
     });
   }
 
+  // Refreshes chart every second
   refresh() {
     this.timestamps = this.gatherer.timestamps.map(x => this.format(x));
     this.lineChartData[0].data = this.gatherer.soilMoistureData;
   }
 
+  // Updates the chart data
   format(date: Date) {
     return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
   }

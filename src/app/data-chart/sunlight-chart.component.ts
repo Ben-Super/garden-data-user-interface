@@ -52,6 +52,7 @@ export class SunlightChartComponent implements OnInit {
       }],
     },
   };
+  // The colors for the chart
   public lineChartColors: Color[] = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -62,21 +63,25 @@ export class SunlightChartComponent implements OnInit {
       pointHoverBorderColor: 'rgba(148,159,177,0.8)'
     }
   ];
+  // Other chart settings
   public lineChartLegend = true;
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
 
+  // Refreshes chart every second
   ngOnInit() {
     interval(1000).subscribe(x => {
       this.refresh();
     });
   }
 
+  // Updates the chart data
   refresh() {
     this.timestamps = this.gatherer.timestamps.map(x => this.format(x));
     this.lineChartData[0].data = this.gatherer.sunlightData;
   }
 
+  // Formats dates into time strings
   format(date: Date) {
     return date.getHours() + ':' + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
   }
