@@ -9,15 +9,15 @@
   <div class="data" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="1%">
     <mat-card fxFlex="100%">
       <mat-card-header>
-        <mat-card-title>
-          <fa-icon [icon]="gatherer.isGoodTemp(getLastVals().temp).icon"></fa-icon>
+        <mat-card-title [style.color]="gatherer.isGoodTemp(getLastVals().temp).color">
+          <fa-icon [icon]="gatherer.isGoodTemp(getLastVals().temp).icon" ></fa-icon>
           {{ gatherer.isGoodTemp(getLastVals().temp).status }}
           ({{ getLastVals().temp | number: '1.1-1' }}&#176;F)
         </mat-card-title>
         <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
       </mat-card-header>
       <mat-card-header>
-        <mat-card-title>
+        <mat-card-title [style.color]="gatherer.isGoodMoisture(getLastVals().soil).color">
           <fa-icon [icon]="gatherer.isGoodMoisture(getLastVals().soil).icon"></fa-icon>
           {{ gatherer.isGoodMoisture(getLastVals().soil).status }}
           ({{ getLastVals().soil | number: '1.1-1' }}%)
@@ -25,7 +25,7 @@
         <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
       </mat-card-header>
       <mat-card-header>
-        <mat-card-title>
+        <mat-card-title [style.color]="gatherer.isInSun(getLastVals().sun).color">
           <fa-icon [icon]="gatherer.isInSun(getLastVals().sun).icon"></fa-icon>
           {{ gatherer.isInSun(getLastVals().sun).status }}
         </mat-card-title>
