@@ -1,12 +1,36 @@
-<div class="data" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="1%">
-  <mat-card fxFlex="100%">
-    <mat-card-header>
-      <mat-card-title>{{ getLastVals()[0] }} &#176;F</mat-card-title>
-      <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
-      <mat-card-title>{{ getLastVals()[1] }}%</mat-card-title>
-      <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
-      <mat-card-title>{{ getLastVals()[2] }}</mat-card-title>
-      <mat-card-subtitle>Sunlight</mat-card-subtitle>
-    </mat-card-header>
-  </mat-card>
+<div class="container" fxLayout="column">
+  <div class="header">
+    <mat-toolbar color="#000000">
+      <mat-toolbar-row>
+        <div fxFlex>{{ getLastTimestamp() }}</div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+  <div class="data" fxFlex="100%" fxLayoutAlign="center" fxLayoutGap="1%">
+    <mat-card fxFlex="100%">
+      <mat-card-header>
+        <mat-card-title>
+          <fa-icon [icon]="gatherer.isGoodTemp(getLastVals().temp).icon"></fa-icon>
+          {{ gatherer.isGoodTemp(getLastVals().temp).status }}
+          ({{ getLastVals().temp | number: '1.1-1' }}&#176;F)
+        </mat-card-title>
+        <mat-card-subtitle>Outside Temperature</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          <fa-icon [icon]="gatherer.isGoodMoisture(getLastVals().soil).icon"></fa-icon>
+          {{ gatherer.isGoodMoisture(getLastVals().soil).status }}
+          ({{ getLastVals().soil | number: '1.1-1' }}%)
+        </mat-card-title>
+        <mat-card-subtitle>Soil Moisture</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-header>
+        <mat-card-title>
+          <fa-icon [icon]="gatherer.isInSun(getLastVals().sun).icon"></fa-icon>
+          {{ gatherer.isInSun(getLastVals().sun).status }}
+        </mat-card-title>
+        <mat-card-subtitle>Sun Status</mat-card-subtitle>
+      </mat-card-header>
+    </mat-card>
+  </div>
 </div>

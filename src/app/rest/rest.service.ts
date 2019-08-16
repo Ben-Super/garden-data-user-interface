@@ -1,30 +1,32 @@
 import { Injectable } from "@angular/core";
-import { Http, Response } from "@angular/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
 import { ThingSpeakData } from './response-interface';
 
 const endpoint = 'https://api.thingspeak.com/channels/500326/';
 
+/*
+ * ~ Rest Service ~
+ * 
+ * Retrieves the data from thingspeak and returns observables to the gatherer
+ * 
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class RestService {
-  response: any;
 
-  constructor(private http: Http) {}
+  constructor(protected http: HttpClient) {}
 
-  get(): Observable<ThingSpeakData[]> {
+  // Gets the most recent piece of data
+  get(): Observable<ThingSpeakData> {
       return this.http
-          .get(endpoint + 'feeds.json?results=1')
-          .map((response: Response) => {
-            return <ThingSpeakData[]>response.json().feeds;
-          })
-          .catch(this.handleError);
+          .get<ThingSpeakData>(endpoint + 'feeds.json?results=1');
   }
 
-  private handleError(error: Response) {
-    return Observable.throw(error.statusText);
+  // Gets the last numFeeds readings (numFeeds is chosen by the param)
+  getMany(numFeeds: number): Observable<ThingSpeakData> {
+    return this.http
+          .get<ThingSpeakData>(endpoint + 'feeds.json?results=' + numFeeds);
   }
 }

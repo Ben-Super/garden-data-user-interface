@@ -1,10 +1,26 @@
 <mat-toolbar color="primary">
   <mat-toolbar-row>
-    <span>Garden Data</span>
+    <div fxFlex>Garden Data Tracker</div>
+    <div>
+      <button mat-menu-item [matMenuTriggerFor]="menu">
+        <fa-icon [icon]="faInfoCircle"></fa-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item disabled>
+          <span>Author: Ben Super</span>
+        </button>
+        <button mat-menu-item disabled>
+          <span>Version: 1.0.0</span>
+        </button>
+        <button mat-menu-item disabled>
+          <span>Release: August 2019</span>
+        </button>
+      </mat-menu>
+    </div>
   </mat-toolbar-row>
 </mat-toolbar>
 <mat-tab-group>
-  <mat-tab label="Right Now">
+  <mat-tab label="Latest">
     <latest-section [gatherer]="gatherer"></latest-section>
   </mat-tab>
   <mat-tab label="Today">
@@ -20,11 +36,8 @@
       </mat-tab>
     </mat-tab-group>
   </mat-tab>
-  <mat-tab label="Previous Days">
-    <day-data-chart [gatherer]="gatherer"></day-data-chart>
-  </mat-tab>
-  <mat-tab label="Previous Month">
-    Coming Soon!
+  <mat-tab label="Past Data">
+    <month-data-chart [gatherer]="gatherer"></month-data-chart>
   </mat-tab>
 </mat-tab-group>
 

@@ -7,10 +7,10 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class DayDataChunk {
-  date: Date;
-  temperature: number;
-  soil_moisture: number;
-  sunlight: number;
+  date: Date; // Date the data is from
+  temperature: number; // Average temperature for the day
+  soil_moisture: number; // Avesrage soil moisture for the day
+  sunlight: number; // Percent of time the device was in the sun during this day
 
   constructor(d: Date, t: number, sm: number, sn: number) {
     this.date = d;
