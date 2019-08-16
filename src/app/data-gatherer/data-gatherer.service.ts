@@ -4,6 +4,18 @@ import { ThingSpeakData } from '../rest/response-interface';
 import { RestService } from '../rest/rest.service';
 import { interval } from 'rxjs';
 
+import {
+  faTint,
+  faTintSlash,
+  faSun,
+  faCloud,
+  faSnowflake,
+  faCheckCircle,
+  faMoon,
+  faFireAlt,
+  faTimesCircle
+} from '@fortawesome/free-solid-svg-icons';
+
 export const IN_SUN_THRESHOLD = 500;
 export const IN_SHADE_THRESHOLD = 50;
 export const SOIL_UPPER_THRESHOLD = 60;
@@ -24,6 +36,18 @@ const NUM_VALS_ON_STARTUP = 100;
 })
 export class DataGathererService {
 
+  // Icons
+  faTint = faTint;
+  faTintSlash = faTintSlash;
+  faSun = faSun;
+  faCloud = faCloud;
+  faSnowflake = faSnowflake;
+  faCheckCircle = faCheckCircle;
+  faMoon = faMoon;
+  faFireAlt = faFireAlt;
+  faTimesCircle = faTimesCircle;
+
+  // Member Vars
   public days: DayDataChunk[] = []; // Data storage for past days
   public today: Date = new Date(); // Current day
   public timestamps: Date[] = []; // Timestamps for the readings
@@ -134,39 +158,75 @@ export class DataGathererService {
   // Returns statuses based on the temperature
   isGoodTemp(temp: number) {
     if (this.timestamps.length < 1 || temp < 1) {
-      return 'No Data';
+      return {
+        status: 'No Data',
+        icon: faTimesCircle
+      }
     } else if (temp < TEMP_LOWER_THRESHOLD) {
-      return 'Too Cold';
+      return {
+        status: 'Too Cold',
+        icon: faSnowflake
+      }
     } else if (temp > TEMP_UPPER_THRESHOLD) {
-      return 'Too Hot';
+      return {
+        status: 'Too Hot',
+        icon: faFireAlt
+      }
     } else {
-      return 'Good';
+      return {
+        status: 'Good',
+        icon: faCheckCircle
+      }
     }
   }
 
   // Returns statuses based on the soil moisture
   isGoodMoisture(soil: number) {
     if (this.timestamps.length < 1 || soil < 1) {
-      return 'No Data';
+      return {
+        status: 'No Data',
+        icon: faTimesCircle
+      }
     } else if (soil < SOIL_LOWER_THRESHOLD) {
-      return 'Too Dry';
+      return {
+        status: 'Too Dry',
+        icon: faTintSlash
+      }
     } else if (soil > SOIL_UPPER_THRESHOLD) {
-      return 'Too Wet';
+      return {
+        status: 'Too Wet',
+        icon: faTint
+      }
     } else {
-      return 'Good';
+      return {
+        status: 'Good',
+        icon: faCheckCircle
+      }
     }
   }
 
   // Returns statuses based on the sunlight
   isInSun(sun: number) {
     if (this.timestamps.length < 1 || sun < 1) {
-      return 'No Data';
+      return {
+        status: 'No Data',
+        icon: faTimesCircle
+      }
     } else if (sun >= IN_SUN_THRESHOLD) {
-      return 'Sunny';
+      return {
+        status: 'Sunny',
+        icon: faSun
+      }
     } else if (sun >= IN_SHADE_THRESHOLD) {
-      return 'Cloudy / Shady';
+      return {
+        status: 'Cloudy / Shady',
+        icon: faCloud
+      }
     } else {
-      return 'Night';
+      return {
+        status: 'Night',
+        icon: faMoon
+      }
     }
   }
 }

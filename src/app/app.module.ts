@@ -13,6 +13,7 @@ import {
   MatInputModule,
   MatFormFieldModule
 } from '@angular/material';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { ChartsModule } from 'ng2-charts';
 import { AppRoutingModule } from './app-routing.module';
@@ -47,7 +48,8 @@ import { MonthChartComponent } from './data-chart/month-chart.component';
     MatCardModule,
     MatInputModule,
     MatFormFieldModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    FontAwesomeModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
