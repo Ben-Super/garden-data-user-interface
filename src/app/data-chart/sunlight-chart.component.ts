@@ -17,12 +17,16 @@ import { DataGathererService, IN_SUN_THRESHOLD } from '../data-gatherer/data-gat
 })
 export class SunlightChartComponent implements OnInit {
 
-  @Input() gatherer: DataGathererService;
+  // Inputs
+  @Input() gatherer: DataGathererService; // The gatherer service
 
+  // Inits an empty data set for the chart
   public lineChartData: ChartDataSets[] = [
     { data: [], fill: false, label: 'Sunlight' }
   ];
+  // Array for the timestamps (x-axis)
   public timestamps: string[] = [];
+  // The chart options object
   public lineChartOptions: (ChartOptions & { annotation: any }) = {
     responsive: true,
     scales: {
@@ -42,7 +46,7 @@ export class SunlightChartComponent implements OnInit {
         xScaleID: "x-axis-0",
         yScaleID: "y-axis-0",
         borderWidth: 0,
-        yMin: IN_SUN_THRESHOLD,
+        yMin: IN_SUN_THRESHOLD, // green zone lower bound
         yMax: 1000,
         backgroundColor: "rgba(46, 204, 113,0.3)"
       }],
