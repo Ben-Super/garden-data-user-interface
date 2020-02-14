@@ -8,7 +8,6 @@ import {
   SOIL_UPPER_THRESHOLD,
   SOIL_LOWER_THRESHOLD
  } from './data-gatherer/data-gatherer.service';
-
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
