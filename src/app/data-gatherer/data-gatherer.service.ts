@@ -16,14 +16,14 @@ import {
   faTimesCircle
 } from '@fortawesome/free-solid-svg-icons';
 
-export const IN_SUN_THRESHOLD = 500;
+export const IN_SUN_THRESHOLD = 250;
 export const IN_SHADE_THRESHOLD = 50;
-export const SOIL_UPPER_THRESHOLD = 60;
-export const SOIL_LOWER_THRESHOLD = 20;
+export const SOIL_UPPER_THRESHOLD = 95;
+export const SOIL_LOWER_THRESHOLD = 65;
 export const TEMP_UPPER_THRESHOLD = 90;
 export const TEMP_LOWER_THRESHOLD = 60;
 const REFRESH_RATE = 1000;
-const NUM_VALS_ON_STARTUP = 100;
+const NUM_VALS_ON_STARTUP = 200;
 
 /*
  * ~ Data Gatherer ~
@@ -160,22 +160,26 @@ export class DataGathererService {
     if (this.timestamps.length < 1 || temp < 1) {
       return {
         status: 'No Data',
-        icon: faTimesCircle
+        icon: faTimesCircle,
+        color: '#eb2e10'
       }
     } else if (temp < TEMP_LOWER_THRESHOLD) {
       return {
         status: 'Too Cold',
-        icon: faSnowflake
+        icon: faSnowflake,
+        color: '#9ae3e2'
       }
     } else if (temp > TEMP_UPPER_THRESHOLD) {
       return {
         status: 'Too Hot',
-        icon: faFireAlt
+        icon: faFireAlt,
+        color: '#ed980e'
       }
     } else {
       return {
         status: 'Good',
-        icon: faCheckCircle
+        icon: faCheckCircle,
+        color: '#16cc0c'
       }
     }
   }
@@ -185,22 +189,26 @@ export class DataGathererService {
     if (this.timestamps.length < 1 || soil < 1) {
       return {
         status: 'No Data',
-        icon: faTimesCircle
+        icon: faTimesCircle,
+        color: '#eb2e10'
       }
     } else if (soil < SOIL_LOWER_THRESHOLD) {
       return {
         status: 'Too Dry',
-        icon: faTintSlash
+        icon: faTintSlash,
+        color: '#dbb24b'
       }
     } else if (soil > SOIL_UPPER_THRESHOLD) {
       return {
         status: 'Too Wet',
-        icon: faTint
+        icon: faTint,
+        color: '#3d6fdb'
       }
     } else {
       return {
         status: 'Good',
-        icon: faCheckCircle
+        icon: faCheckCircle,
+        color: '#16cc0c'
       }
     }
   }
@@ -210,22 +218,26 @@ export class DataGathererService {
     if (this.timestamps.length < 1 || sun < 1) {
       return {
         status: 'No Data',
-        icon: faTimesCircle
+        icon: faTimesCircle,
+        color: '#eb2e10'
       }
     } else if (sun >= IN_SUN_THRESHOLD) {
       return {
         status: 'Sunny',
-        icon: faSun
+        icon: faSun,
+        color: '#f2d038'
       }
     } else if (sun >= IN_SHADE_THRESHOLD) {
       return {
         status: 'Cloudy / Shady',
-        icon: faCloud
+        icon: faCloud,
+        color: '#8f8e8b'
       }
     } else {
       return {
         status: 'Night',
-        icon: faMoon
+        icon: faMoon,
+        color: '#000000'
       }
     }
   }

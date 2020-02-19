@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { interval } from 'rxjs';
 import { DataGathererService } from '../data-gatherer/data-gatherer.service';
 import { DayDataChunk } from '../data-gatherer/data-objects';
-import { faCalendarDay, faSun, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCalendarAlt, faSun, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 /*
  * ~ Month Chart Component ~
@@ -18,7 +18,7 @@ import { faCalendarDay, faSun, faTimesCircle } from '@fortawesome/free-solid-svg
 export class MonthChartComponent implements OnInit {
 
   // Icons
-  faCalendarDay = faCalendarDay;
+  faCalendarAlt = faCalendarAlt;
   faSun = faSun;
   faTimesCircle = faTimesCircle;
 
